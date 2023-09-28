@@ -6,4 +6,5 @@ print(seed)
 
 def demo():
     print("demo")
+    print("JOHNFRANK OH")
 demo()
