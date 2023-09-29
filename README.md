@@ -7,7 +7,7 @@ When pushing/pulling on the development server, git will ask you for a password.
 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
 ```
 
-
+ignore this
 ```bash
 git config --global credential.https://github.com.username your-username
 git config --global credential.https://github.com.token your-access-token
