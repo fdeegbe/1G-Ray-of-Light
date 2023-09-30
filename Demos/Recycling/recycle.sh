@@ -1,4 +1,4 @@
-# DONT USE THIS FILE
+
 
 
 # # This script will combine create and delete to set up
@@ -7,7 +7,10 @@
 
 # # Randomize 4 random numbers 1 through 4 here
 
-
+random_byte=$(od -An -N1 -i /dev/urandom)
+range=4
+random_number=$((random_byte % range + 1))
+echo "Random number between 1 and 4: $random_number"
 
 
 # ./recycle-create.sh
