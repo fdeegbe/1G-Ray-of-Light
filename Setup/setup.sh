@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Loads all of the different packages that are required for future operations.
 
 
@@ -31,4 +33,4 @@ sudo ./install.sh
 
 
 # Set up crontab
-echo "*/25 * * * * ./recycle.sh"| crontab -
+echo "*/25 * * * * ./recycle"| crontab -
