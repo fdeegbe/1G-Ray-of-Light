@@ -36,5 +36,8 @@ sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $
 d=$(date +%Y-%m-%d)
 echo $d
 
+sudo mkdir /MITM
+sudo mkdir /MITM/$d
+
 sudo forever -l /MITM/mitm_logs/$d/$4.log start /MITM/mitm.js -n $1 -i $ip_addr -p $3 --auto-access --auto-access-fixed 1 --debug
 
