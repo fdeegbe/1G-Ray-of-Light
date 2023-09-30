@@ -2,7 +2,7 @@
 
 
 # Default Firewall Rules
-sudo ./firewall_rules.sh
+sudo sh firewall_rules.sh
 
 # # Install Docker
 # sudo apt update
