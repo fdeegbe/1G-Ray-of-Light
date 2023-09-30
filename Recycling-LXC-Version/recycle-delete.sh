@@ -6,6 +6,8 @@ sudo lxc-stop -n container2
 sudo lxc-stop -n container3
 sudo lxc-stop -n container4
 
+# TODO: grab container data
+
 sudo lxc-destroy -n container1
 sudo lxc-destroy -n container2
 sudo lxc-destroy -n container3
