@@ -4,7 +4,7 @@
 
 
 
-ip_addr = #docker command to pull ip address ofcontainer
+ip_addr = #docker command to pull ip address of container
 
 sudo ip addr add $2/16 brd + dev eth1
 sudo sysctl -w net.ipv4.conf.all.route_localnet=1

@@ -30,10 +30,10 @@ print(honeypots_to_make)
 # from the 4 different varation's templates.
 
 
-subprocess.run(["./recycle-create.sh", honeypots_to_make[0], "128.8.238.25", "5000"])
-subprocess.run(["./recycle-create.sh", honeypots_to_make[1], "128.8.238.39", ])
-subprocess.run(["./recycle-create.sh", honeypots_to_make[2], "128.8.238.58", ])
-subprocess.run(["./recycle-create.sh", honeypots_to_make[3], "128.8.238.188", ])
+subprocess.run(["./recycle-create.sh", honeypots_to_make[0], "128.8.238.25", "5000", "container1"], check=True)
+subprocess.run(["./recycle-create.sh", honeypots_to_make[1], "128.8.238.39", "5001", "container2"], check=True)
+subprocess.run(["./recycle-create.sh", honeypots_to_make[2], "128.8.238.58", "5002", "container3"], check=True)
+subprocess.run(["./recycle-create.sh", honeypots_to_make[3], "128.8.238.188", "5002", "container4"], check=True)
 
 
 # We will then put in place the conditions for recycling.
