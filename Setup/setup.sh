@@ -3,7 +3,7 @@
 
 # Default Firewall Rules
 sudo sh firewall_rules.sh
-cd ..
+cd /
 # # Install Docker
 # sudo apt update
 # # Install Docker's dependencies:
