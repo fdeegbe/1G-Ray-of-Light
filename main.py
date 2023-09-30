@@ -4,7 +4,9 @@ import random
 # This script will serve at the main randomization script for our honeypot
 # deployment. It will randomize the honeypot variations for each deployment
 # round, launch the 4 instances, setup the MITM server, and configure firewall
-# and nat rules appropriately.
+# and nat rules appropriately. Note that this script assumes forever is
+# installed for a persistent MITM server in background mode as well as the 
+# MITM server itself.
 
 # Randomization - This will get a seed using the time using the time since 
 # epoch. It will then generate 3 random numbers 1 through 4 which will
@@ -27,9 +29,24 @@ print(honeypots_to_make)
 # from the 4 different varation's templates.
 
 
-# We will then use forever to launch a MITM server in background mode.
+# 
+# Run script or code here to make the containers
+# 
 
-def demo():
-    print("demo")
-    print("JOHNFRANK OH")
-# demo()
+
+# We will then use forever to launch a MITM server in background mode. In order
+# to launch the MITM server, we will need the IPs of the 4 contianers, the 4
+# public IPs we were given, 
+
+
+# 
+# Run script or code here to make the MITM server, set up routing, and set up firewalls
+# 
+
+
+# We will then put in place the conditions for recycling.
+
+
+# 
+# Run script or code here to actually put in place requirements for recycling (probably time based)
+# 
