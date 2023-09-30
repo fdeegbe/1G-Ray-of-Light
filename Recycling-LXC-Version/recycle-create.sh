@@ -9,12 +9,17 @@
 #   exit 1
 # fi
 
-sudo docker run -d --name $4 -it ubuntu-20.04.6-demo /bin/bash
+sudo lxc-create -n "$4" -t download -- -d ubuntu -r focal -a amd64
+sudo lxc-start -n "$4"
+
+sleep 3
+
+# put openssh onto container
+sudo lxc-attach -n "$1" -- bash -c "yes | sudo apt-get install openssh-server"
 
 #docker command to pull ip address of container
-ip_addr=$( sudo docker inspect $4 | grep \""IPAddress\"" | cut -d ":" -f2 | tr -d \" | tr -d , | head -n 1 | tr -d " " )
+ip_addr=$(sudo lxc-ls -f | grep "$4 " | tr -s " " | cut -d " " -f 5)
 # echo $ip_addr
-# put openssh onto container
 
 
 sudo ip addr add $2/16 brd + dev eth1
@@ -25,5 +30,5 @@ sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $
 
 d=$(date +%Y-%m-%d)
 
-sudo forever -l ~/MITM/mitm_logs/$d/$4.log start ~/MITM/mitm.js -n $1 -i $ip_addr -p $3 --auto-access --auto-access-fixed 1 --debug
+sudo forever -l /MITM/mitm_logs/$d/$4.log start ~/MITM/mitm.js -n $1 -i $ip_addr -p $3 --auto-access --auto-access-fixed 1 --debug
 

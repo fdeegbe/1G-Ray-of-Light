@@ -2,7 +2,7 @@
 
 
 # Default Firewall Rules
-# sudo ./firewall_rules.sh
+sudo ./firewall_rules.sh
 
 # Install Docker
 sudo apt update
@@ -22,3 +22,10 @@ sudo systemctl start docker
 # sudo systemctl is-active docker
 
 
+# Install forever
+sudo npm install -g forever
+
+# Install MITM server
+git clone https://github.com/UMD-ACES/MITM
+cd ./MITM
+sudo ./install.sh
