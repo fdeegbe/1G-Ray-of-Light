@@ -1,5 +1,5 @@
 # Use the official Ubuntu 20.04 LTS as the base image
-FROM ubuntu:20.04.6
+FROM ubuntu:20.04
 
 # Set environment variables (optional)
 ENV TZ=UTC
