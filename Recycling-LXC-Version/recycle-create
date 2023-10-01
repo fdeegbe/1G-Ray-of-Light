@@ -9,8 +9,8 @@
 #   exit 1
 # fi
 
-sudo lxc-create -n "$4" -t download -- -d ubuntu -r focal -a amd64
-sudo lxc-start -n "$4"
+sudo lxc-create -n $4 -t download -- -d ubuntu -r focal -a amd64
+sudo lxc-start -n $4
 
 sleep 5
 
@@ -39,8 +39,6 @@ then
     # level 4
     sudo lxc-attach -n $4 -- bash -c "sudo echo printf \"This is a test message, beware! - Level 4\" >> /etc/update-motd.d/00-header"
 fi
-
-
 
 # pull ip address of container
 ip_addr=$(sudo lxc-ls -f | grep "$4 " | tr -s " " | cut -d " " -f 5)
