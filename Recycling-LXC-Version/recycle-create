@@ -16,7 +16,7 @@ sleep 5
 
 # put openssh onto container
 # sudo lxc-attach -n "$4" -- bash -c "yes | sudo apt install openssh-server"
-echo "Y" | sudo lxc-attach -n $container_name -- sudo apt install openssh-server
+echo "Y" | sudo lxc-attach -n $4 -- sudo apt install openssh-server
 
 # # Set up container based on level indicated by random generation
 # if [ $1 == "level1"]
