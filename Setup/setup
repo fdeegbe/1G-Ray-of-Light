@@ -33,4 +33,4 @@ sudo ./install.sh
 
 
 # Set up crontab
-echo "*/25 * * * * ./recycle"| crontab -
+echo "*/25 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle" | sudo crontab -
