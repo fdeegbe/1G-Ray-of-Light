@@ -49,3 +49,12 @@ sudo docker run -d --name my-container my-container-image
 sudo docker run -d -it ubuntu-20.04.6-demo /bin/bash
 sudo docker run -d --name container1 -it ubuntu-20.04.6-demo /bin/bash
 ```
+Workstation
+```bash
+
+Workstation Machine:
+Password: johnjohn
+IP: 172.30.146.6
+ssh student@jump.aces.umd.edu -p 33475
+
+```

@@ -62,6 +62,7 @@ sudo mkdir /MITM/mitm_logs/$d
 sudo forever -l /MITM/mitm_logs/$d/$t-$4.log start /MITM/mitm.js -n $4 -i $ip_addr -p $3 --auto-access --auto-access-fixed 3 --debug
 
 sudo ip addr add $2/16 brd + dev eth1
+
 sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $2 --jump DNAT --to-destination $ip_addr
 sudo iptables --table nat --insert POSTROUTING --source $ip_addr --destination 0.0.0.0/0 --jump SNAT --to-source $2
 sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $2 --protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:$3
