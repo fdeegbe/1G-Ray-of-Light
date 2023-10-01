@@ -17,6 +17,7 @@ network_prefix=$3
 sudo lxc-create -n $container_name -t download -- -d ubuntu -r focal -a amd64
 sudo lxc-start -n $container_name
 sleep 5
+
 container_ip=$( sudo lxc-info -n $container_name | grep -w "IP:" | cut -d' ' -f14 )
 sudo ip addr add $assigned_ip/$network_prefix brd + dev eth1
 
