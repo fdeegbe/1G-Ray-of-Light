@@ -17,7 +17,9 @@ sleep 5
 # put openssh onto container
 # NEW COMMENT: We don't need this bc we are using snapshots that have all the necessary configurations
 # sudo lxc-attach -n "$4" -- bash -c "yes | sudo apt install openssh-server"
-# echo "Y" | sudo lxc-attach -n $4 -- sudo apt install openssh-server
+
+# We do need this right now but we will eventually have snapshots so we won't need it in the future
+echo "Y" | sudo lxc-attach -n $4 -- sudo apt install openssh-server
 
 # Set up container based on level indicated by random generation
 if [ $1 == 1 ]
@@ -37,7 +39,6 @@ then
     # level 4
     sudo lxc-attach -n $4 -- bash -c "sudo echo printf \"This is a test message, beware! - Level 4\" >> /etc/update-motd.d/00-header"
 fi
-
 
 
 
