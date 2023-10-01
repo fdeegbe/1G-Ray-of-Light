@@ -3,7 +3,7 @@
 
 # Docker commands to create and start container 
 # TODO:- ADD additional images
-# if [ $# -ne 5 ]
+# if [ $# -ne 4 ]
 # then
 #   echo "Usage: recycle-create.sh <container_variant>, <public_ip> <MITM_port> <container_name>"
 #   exit 1
@@ -15,8 +15,9 @@ sudo lxc-start -n "$4"
 sleep 5
 
 # put openssh onto container
+# NEW COMMENT: We don't need this bc we are using snapshots that have all the necessary configurations
 # sudo lxc-attach -n "$4" -- bash -c "yes | sudo apt install openssh-server"
-echo "Y" | sudo lxc-attach -n $4 -- sudo apt install openssh-server
+# echo "Y" | sudo lxc-attach -n $4 -- sudo apt install openssh-server
 
 # # Set up container based on level indicated by random generation
 # if [ $1 == "level1"]
