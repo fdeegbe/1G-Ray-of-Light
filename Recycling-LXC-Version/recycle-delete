@@ -10,6 +10,22 @@ sudo lxc-stop -n container4
 
 # TODO: grab container data
 
+# remove forever processes
+# pid=$(sudo forever list | grep container1 | awk '{print $3}')
+# sudo forever stop "$pid"
+
+# pid=$(sudo forever list | grep container2 | awk '{print $3}')
+# sudo forever stop "$pid"
+
+# pid=$(sudo forever list | grep container3 | awk '{print $3}')
+# sudo forever stop "$pid"
+
+# pid=$(sudo forever list | grep container4 | awk '{print $3}')
+# sudo forever stop "$pid"
+
+sudo forever stopall
+
+
 sudo lxc-destroy -n container1
 sudo lxc-destroy -n container2
 sudo lxc-destroy -n container3

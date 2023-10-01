@@ -9,14 +9,18 @@
 #   exit 1
 # fi
 
+
+
 sudo lxc-create -n $4 -t download -- -d ubuntu -r focal -a amd64
+# Commands if we want to use snapshot version, wouldn't need to put openssh and piping files into container
+# sudo rsync -a /var/lib/lxc/template$1/snaps/snap0/ /var/lib/lxc/$container-name/
 sudo lxc-start -n $4
 
 sleep 5
 
 # put openssh onto container
 # NEW COMMENT: We don't need this bc we are using snapshots that have all the necessary configurations
-# sudo lxc-attach -n "$4" -- bash -c "yes | sudo apt install openssh-server"
+sudo lxc-attach -n "$4" -- bash -c "yes | sudo apt install openssh-server"
 
 # We do need this right now but we will eventually have snapshots so we won't need it in the future
 echo "Y" | sudo lxc-attach -n $4 -- sudo apt install openssh-server

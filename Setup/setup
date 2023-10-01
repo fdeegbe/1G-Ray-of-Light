@@ -32,5 +32,5 @@ cd ./MITM
 sudo ./install.sh
 
 # Set up crontab
-echo "*/3 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle" >> sudo crontab -
+echo "*/3 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle" | sudo crontab -
 # */1 * * * * echo 3
