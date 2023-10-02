@@ -28,19 +28,19 @@ echo "Y" | sudo lxc-attach -n $container_name -- sudo apt install openssh-server
 if [ $container_variant == 1 ]
 then
     # level 1
-    sudo lxc-attach -n $container_name -- bash -c "sudo echo printf \"This is a test message, beware! - Level 1\" >> /etc/update-motd.d/00-header"
+    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf "This is a test message, beware! - Level 1" >> /etc/update-motd.d/00-header'
 elif [ $container_variant == 2 ]
 then
     # level 2
-    sudo lxc-attach -n $container_name -- bash -c "sudo echo printf \"This is a test message, beware! - Level 2\" >> /etc/update-motd.d/00-header"
+    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf "This is a test message, beware! - Level 2" >> /etc/update-motd.d/00-header'
 elif [ $container_variant == 3 ]
 then
     # level 3
-    sudo lxc-attach -n $container_name -- bash -c "sudo echo printf \"This is a test message, beware! - Level 3\" >> /etc/update-motd.d/00-header"
+    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf "This is a test message, beware! - Level 3" >> /etc/update-motd.d/00-header'
 elif [ $container_variant == 4 ]
 then
     # level 4
-    sudo lxc-attach -n $container_name -- bash -c "sudo echo printf \"This is a test message, beware! - Level 4\" >> /etc/update-motd.d/00-header"
+    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf "This is a test message, beware! - Level 4" >> /etc/update-motd.d/00-header'
 fi
 
 # Command needed for MITM server routing.

@@ -15,7 +15,7 @@ cd ./MITM
 sudo ./install.sh
 
 # Set up crontab in root crontab for the permissions.
-echo -e "*/3 * * * * ~/1G-Ray-of-Light/Recycling-LXC-Version/recycle\n" | sudo crontab -
+echo -e "*/25 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle\n" | sudo crontab -
 
 # Ensure execute permissions are added on the recycle script.
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/recycle
