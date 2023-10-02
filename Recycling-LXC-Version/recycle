@@ -28,10 +28,10 @@ sudo chmod +x recycle-create
 sudo chmod +x recycle-delete
 
 # Run the recycle-delete script to delete the container and nat rules.
-./recycle-delete
+/1G-Ray-of-Light/Recycling-LXC-Version/recycle-delete
 
 # Run the recycle-create script to create 4 different containers.
-./recycle-create $random_number1 128.8.238.25 5001 container1
-./recycle-create $random_number2 128.8.238.39 5002 container2
-./recycle-create $random_number3 128.8.238.58 5003 container3
-./recycle-create $random_number4 128.8.238.188 5004 container4
+/1G-Ray-of-Light/Recycling-LXC-Versio/recycle-create $random_number1 128.8.238.25 5001 container1
+/1G-Ray-of-Light/Recycling-LXC-Versio/recycle-create $random_number2 128.8.238.39 5002 container2
+/1G-Ray-of-Light/Recycling-LXC-Versio/recycle-create $random_number3 128.8.238.58 5003 container3
+/1G-Ray-of-Light/Recycling-LXC-Versio/recycle-create $random_number4 128.8.238.188 5004 container4
