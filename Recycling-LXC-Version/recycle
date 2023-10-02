@@ -19,7 +19,7 @@ sudo chmod +x recycle-delete
 
 ./recycle-delete
 
-./recycle-create $random_number1 128.8.238.25 5000 container1
-./recycle-create $random_number2 128.8.238.39 5001 container2
-./recycle-create $random_number3 128.8.238.58 5002 container3
-./recycle-create $random_number4 128.8.238.188 5003 container4
+./recycle-create $random_number1 128.8.238.25 5001 container1
+./recycle-create $random_number2 128.8.238.39 5002 container2
+./recycle-create $random_number3 128.8.238.58 5003 container3
+./recycle-create $random_number4 128.8.238.188 5004 container4

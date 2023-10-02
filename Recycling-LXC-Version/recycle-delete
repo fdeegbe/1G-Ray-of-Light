@@ -3,10 +3,6 @@
 # This script will stop and delete the 4 running containers in preparation
 # for the creation of the new systems
 
-sudo lxc-stop -n container1
-sudo lxc-stop -n container2
-sudo lxc-stop -n container3
-sudo lxc-stop -n container4
 
 # TODO: grab container data
 
@@ -24,9 +20,15 @@ sudo lxc-stop -n container4
 # sudo forever stop "$pid"
 
 sudo forever stopall
-
-
-sudo lxc-destroy -n container1
-sudo lxc-destroy -n container2
-sudo lxc-destroy -n container3
-sudo lxc-destroy -n container4
+addrs=(128.8.238.25 128.8.238.39 128.8.238.58 128.8.238.115)
+for i in 1 2 3 4
+do
+    ip_addr=$(sudo lxc-ls -f | grep "container$i" | tr -s " " | cut -d " " -f 5)
+    pub=${addrs[$(($i - 1))]}
+    port=$((5000 + $i))
+    sudo lxc-stop -n "container$i"
+    sudo lxc-destroy -n "container$i"
+    sudo iptables --table nat --delete PREROUTING --source 0.0.0.0/0 --destination $pub --jump DNAT --to-destination $ip_addr
+    sudo iptables --table nat --delete POSTROUTING --source $ip_addr --destination 0.0.0.0/0 --jump SNAT --to-source $pub
+    sudo iptables --table nat --delete PREROUTING --source 0.0.0.0/0 --destination $pub --protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:$port
+done

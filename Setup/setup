@@ -32,5 +32,9 @@ cd ./MITM
 sudo ./install.sh
 
 # Set up crontab
-echo "*/3 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle" | sudo crontab -
+echo "*/3 * * * * ~/1G-Ray-of-Light/Recycling-LXC-Version/recycle" | crontab -
 # */1 * * * * echo 3
+# */3 * * * * /home/jhooker/1G-Ray-of-Light/Recycling-LXC-Version/recycle
+
+# Give permissions
+chmod +x ~/1G-Ray-of-Light/Recycling-LXC-Version/recycle
