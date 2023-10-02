@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Clone this repository or move it to the root directory (/).
+
 # Loads all of the different firewall rules and packages that are required for future operations.
 
 # Run default firewall rules provided to us.

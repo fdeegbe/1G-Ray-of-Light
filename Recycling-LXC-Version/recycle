@@ -24,8 +24,8 @@ random_byte=$(od -An -N1 -i /dev/urandom)
 random_number4=$((random_byte % range + 1))
 
 # Give execute permissions for creation and deletion.
-sudo chmod +x recycle-create
-sudo chmod +x recycle-delete
+sudo chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create
+sudo chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/recycle-delete
 
 # Run the recycle-delete script to delete the container and nat rules.
 /1G-Ray-of-Light/Recycling-LXC-Version/recycle-delete
