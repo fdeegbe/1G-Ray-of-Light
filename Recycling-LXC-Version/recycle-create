@@ -1,21 +1,19 @@
 #!/bin/bash
-# Accepts arguments of the container template name (1), public ip address, mitm port, and container name
 
-# Docker commands to create and start container 
-# TODO:- ADD additional images
-# if [ $# -ne container_name ]
-# then
-#   echo "Usage: recycle-create.sh <container_variant>, <public_ip> <MITM_port> <container_name>"
-#   exit 1
-# fi
+# Accepts arguments of the container template name (1), public ip address (2), 
+# mitm port (3), and container name (4). This script will create and start the
+# container, get the ip address of the container, and install openssh on the
+# container. Then it will set up the container as the corresponding system
+# level. After, it will set up all of the routing rules and start the MITM
+# server. 
+
+
 container_variant=$1
 assigned_ip=$2
 mitm_port=$3
 container_name=$4
 
 sudo lxc-create -n $container_name -t download -- -d ubuntu -r focal -a amd64
-# Commands if we want to use snapshot version, wouldn't need to put openssh and piping files into container
-# sudo rsync -a /var/lib/lxc/template$1/snaps/snap0/ /var/lib/lxc/$container-name/
 sudo lxc-start -n $container_name
 
 sleep 5
@@ -23,56 +21,45 @@ sleep 5
 # pull ip address of container
 container_ip=$(sudo lxc-ls -f | grep "$container_name " | tr -s " " | cut -d " " -f 5)
 
-sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $assigned_ip --jump DNAT --to-destination $container_ip
-sudo iptables --table nat --insert POSTROUTING --source $container_ip --destination 0.0.0.0/0 --jump SNAT --to-source $assigned_ip
-# put openssh onto container
-# NEW COMMENT: We don't need this bc we are using snapshots that have all the necessary configurations
-# sudo lxc-attach -n "$container_name" -- bash -c "yes | sudo apt install openssh-server"
-
-# We do need this right now but we will eventually have snapshots so we won't need it in the future
+# Install openssh in the container.
 echo "Y" | sudo lxc-attach -n $container_name -- sudo apt install openssh-server
 
-# Set up container based on level indicated by random generation
-if [ $1 == 1 ]
+# Set up container based on level indicated by randomly generated number.
+if [ $container_variant == 1 ]
 then
     # level 1
     sudo lxc-attach -n $container_name -- bash -c "sudo echo printf \"This is a test message, beware! - Level 1\" >> /etc/update-motd.d/00-header"
-elif [ $1 == 2 ]
+elif [ $container_variant == 2 ]
 then
     # level 2
     sudo lxc-attach -n $container_name -- bash -c "sudo echo printf \"This is a test message, beware! - Level 2\" >> /etc/update-motd.d/00-header"
-elif [ $1 == 3 ]
+elif [ $container_variant == 3 ]
 then
     # level 3
     sudo lxc-attach -n $container_name -- bash -c "sudo echo printf \"This is a test message, beware! - Level 3\" >> /etc/update-motd.d/00-header"
-elif [ $1 == container_name ]
+elif [ $container_variant == 4 ]
 then
-    # level container_name
-    sudo lxc-attach -n $container_name -- bash -c "sudo echo printf \"This is a test message, beware! - Level container_name\" >> /etc/update-motd.d/00-header"
+    # level 4
+    sudo lxc-attach -n $container_name -- bash -c "sudo echo printf \"This is a test message, beware! - Level 4\" >> /etc/update-motd.d/00-header"
 fi
 
-# echo $container_ip
+# Command needed for MITM server routing.
 sudo sysctl -w net.ipv4.conf.all.route_localnet=1
 
+# Get date and time variable for MITM file system.
 d=$(date +%Y-%m-%d)
-echo $d
-
 t=$(date +%T)
-echo $t
 
+# Make the directories for the MITM file system.
 sudo mkdir /MITM
 sudo mkdir /MITM/mitm_logs
 sudo mkdir /MITM/mitm_logs/$d
 
-sudo forever -l /MITM/mitm_logs/$d/$t-$container_name.log start /MITM/mitm.js -n $container_name -i $container_ip -p $3 --auto-access --auto-access-fixed 3 --debug
+# Start the MITM server and make associated log file with time and name in the date directory.
+sudo forever -l /MITM/mitm_logs/$d/$t-$container_name.log start /MITM/mitm.js -n $container_name -i $container_ip -p $mitm_port --auto-access --auto-access-fixed 3 --debug
 
-sudo ip addr add $2/16 brd + dev eth1
-
-sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $2 --jump DNAT --to-destination $container_ip
-sudo iptables --table nat --insert POSTROUTING --source $container_ip --destination 0.0.0.0/0 --jump SNAT --to-source $2
-sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $2 --protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:$3
-
-# sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $assigned_ip --jump DNAT --to-destination $container_ip
-# sudo iptables --table nat --insert POSTROUTING --source $container_ip --destination 0.0.0.0/0 --jump SNAT --to-source $assigned_ip
-# sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $assigned_ip --protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:1088
-# sudo ip addr add $assigned_ip/$network_prefix brd + dev eth1
+# Insert necessary nat rules.
+sudo ip addr add $assigned_ip/16 brd + dev eth1
+sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $assigned_ip --jump DNAT --to-destination $container_ip
+sudo iptables --table nat --insert POSTROUTING --source $container_ip --destination 0.0.0.0/0 --jump SNAT --to-source $assigned_ip
+sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $assigned_ip --protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:$mitm_port

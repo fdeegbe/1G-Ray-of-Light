@@ -1,0 +1,27 @@
+#!/bin/bash
+
+
+# Commands if we want to use snapshot version, wouldn't need to put openssh and piping files into container
+# sudo rsync -a /var/lib/lxc/template$1/snaps/snap0/ /var/lib/lxc/$container-name/
+
+
+
+
+
+# put openssh onto container
+# NEW COMMENT: We don't need this bc we are using snapshots that have all the necessary configurations
+# sudo lxc-attach -n "$container_name" -- bash -c "yes | sudo apt install openssh-server"
+
+# We do need this right now but we will eventually have snapshots so we won't need it in the future
+
+
+
+
+# sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $assigned_ip --jump DNAT --to-destination $container_ip
+# sudo iptables --table nat --insert POSTROUTING --source $container_ip --destination 0.0.0.0/0 --jump SNAT --to-source $assigned_ip
+
+
+# sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $assigned_ip --jump DNAT --to-destination $container_ip
+# sudo iptables --table nat --insert POSTROUTING --source $container_ip --destination 0.0.0.0/0 --jump SNAT --to-source $assigned_ip
+# sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $assigned_ip --protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:1088
+# sudo ip addr add $assigned_ip/$network_prefix brd + dev eth1

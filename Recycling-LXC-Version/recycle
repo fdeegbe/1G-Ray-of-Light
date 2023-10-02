@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# This script is the main recycle script that will be re-run each time the
+# honeypots need to be recycled. We first generate 4 completely random
+# numbers between 1 through 4 to represent the 4 random configurations possible.
+# These numbers are completely random and not pseudo-random. We then run our
+# recycle-delete script to delete the containers and nat rules. After, we
+# run the recycle-creat script 4 times for each of the honeypots and pass
+# in the random value, external ip, port, and container name.
+
+# Define the range and generate 4 random numbers.
 range=4
 
 random_byte=$(od -An -N1 -i /dev/urandom)
@@ -14,11 +23,14 @@ random_number3=$((random_byte % range + 1))
 random_byte=$(od -An -N1 -i /dev/urandom)
 random_number4=$((random_byte % range + 1))
 
+# Give execute permissions for creation and deletion.
 sudo chmod +x recycle-create
 sudo chmod +x recycle-delete
 
+# Run the recycle-delete script to delete the container and nat rules.
 ./recycle-delete
 
+# Run the recycle-create script to create 4 different containers.
 ./recycle-create $random_number1 128.8.238.25 5001 container1
 ./recycle-create $random_number2 128.8.238.39 5002 container2
 ./recycle-create $random_number3 128.8.238.58 5003 container3

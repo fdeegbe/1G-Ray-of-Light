@@ -1,25 +1,16 @@
 #!/bin/bash
 
 # This script will stop and delete the 4 running containers in preparation
-# for the creation of the new systems
+# for the creation of the new systems. It will also delete the previous
+# nat routing rules.
 
 
 # TODO: grab container data
 
-# remove forever processes
-# pid=$(sudo forever list | grep container1 | awk '{print $3}')
-# sudo forever stop "$pid"
-
-# pid=$(sudo forever list | grep container2 | awk '{print $3}')
-# sudo forever stop "$pid"
-
-# pid=$(sudo forever list | grep container3 | awk '{print $3}')
-# sudo forever stop "$pid"
-
-# pid=$(sudo forever list | grep container4 | awk '{print $3}')
-# sudo forever stop "$pid"
-
+# Stop all forever (MITM) processes.
 sudo forever stopall
+
+# Stop container, delete container, and delete nat rules.
 addrs=(128.8.238.25 128.8.238.39 128.8.238.58 128.8.238.115)
 for i in 1 2 3 4
 do
