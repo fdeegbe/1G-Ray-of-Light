@@ -12,7 +12,8 @@ cd /
 sudo npm install -g forever
 
 # Clone and install ACES MITM server.
-git clone https://github.com/UMD-ACES/MITM
+git clone https://github.com/fdeegbe/MITM.git
+# git clone https://github.com/UMD-ACES/MITM
 cd ./MITM
 sudo ./install.sh
 
