@@ -31,12 +31,3 @@ PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-poli
 VERSION_CODENAME=focal
 UBUNTU_CODENAME=focal
 ```
-Workstation
-```bash
-
-Workstation Machine:
-Password: johnjohn
-IP: 172.30.146.6
-ssh student@jump.aces.umd.edu -p 33475
-
-```
