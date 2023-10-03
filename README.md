@@ -31,24 +31,6 @@ PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-poli
 VERSION_CODENAME=focal
 UBUNTU_CODENAME=focal
 ```
-## Container Image 
-create a container image
-```
-docker build -t ubuntu-20.04.6-custom .
-```
-run the container image
-```
-sudo docker run -it ubuntu-20.04.6-demo /bin/bash
-sudo docker run -d --name my-container my-container-image
-
-
-
-
-
-
-sudo docker run -d -it ubuntu-20.04.6-demo /bin/bash
-sudo docker run -d --name container1 -it ubuntu-20.04.6-demo /bin/bash
-```
 Workstation
 ```bash
 
