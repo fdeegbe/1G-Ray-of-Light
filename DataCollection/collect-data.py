@@ -6,13 +6,13 @@ from datetime import timedelta
 today = date.today()
 yesterday = today - timedelta(days = 1)
 
-os.sytem("sudo mkdir /MITM/data")
+os.system("sudo mkdir /MITM/data")
 
 # swap yesterday for today when done with testing
 # Go through log files and condense stuff
 for filename in os.listdir("/MITM/mitm_logs/" + str(today)):
     print("Filename: " + str(filename))
-    file = open(filename)
+    file = open("/MITM/mitm_logs/" + str(today) + "/" + filename)
 
     # command: count
     command_dict = {}
