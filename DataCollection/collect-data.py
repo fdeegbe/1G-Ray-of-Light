@@ -8,6 +8,8 @@ yesterday = today - timedelta(days = 1)
 
 os.system("sudo mkdir /MITM/data")
 
+command_pattern = re.compile("[Debug] [SHELL] Line from reader: (.*) ")
+
 # swap yesterday for today when done with testing
 # Go through log files and condense stuff
 for filename in os.listdir("/MITM/mitm_logs/" + str(today)):
@@ -16,8 +18,6 @@ for filename in os.listdir("/MITM/mitm_logs/" + str(today)):
 
     # command: count
     command_dict = {}
-
-    command_pattern = re.compile("[Debug] [SHELL] Line from reader: (*) ")
 
     for line in file:
         m = command_pattern.match(line)
@@ -35,9 +35,11 @@ for filename in os.listdir("/MITM/mitm_logs/" + str(today)):
     for key in command_dict:
         commands += key + " " + command_dict[key] + "\n"
         total += command_dict[key]
-    commands += "Total Commands Executed: " + total + "\n"
+    commands += "Total Commands Executed: " + str(total) + "\n"
 
 
+    os.system("sudo touch /MITM/data/" + filename)
+    os.system("sudo chmod 777 /MITM/data/" + filename)
     new_file = open("/MITM/data/" + filename, "w")
 
     new_file.write(commands)
