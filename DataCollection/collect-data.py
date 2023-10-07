@@ -29,9 +29,13 @@ for filename in os.listdir("/MITM/mitm_logs/" + str(today)):
 
 
 
+    # Turn data structure into string to output to file
     commands = ""
+    total = 0
     for key in command_dict:
         commands += key + " " + command_dict[key] + "\n"
+        total += command_dict[key]
+    commands += "Total Commands Executed: " + total + "\n"
 
 
     new_file = open("/MITM/data/" + filename, "w")
