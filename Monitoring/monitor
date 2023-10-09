@@ -3,9 +3,16 @@
 # This script will run a monitoring check and print results in the /Monitoring directory.
 
 RED='\033[0;31m'
+LB='\033[1;34m'
+CYAN='\033[1;36m'
+NC='\033[0m'
 
-sudo mkdir /Monitoring
-sudo touch /Monitoring/test
+sudo mkdir /Monitoring &> /dev/null
+sudo touch /Monitoring/test &> /dev/null
 
-echo -e "Testing this ${RED}red" >> /Monitoring/test
 
+echo -e "${CYAN}Logged in Users:" >> /Monitoring/test
+who >> /Monitoring/test
+
+echo -e "${CYAN}Memory Usage in Mebibytes:" >> /Monitoring/test
+free -m >> /Monitoring/test
