@@ -1,11 +1,6 @@
 def create_transcript_file(student_info, transfer_credits, past_courses, current_courses):
     heading = """\
-                                   UNIVERSITY OF MARYLAND
-                                        COLLEGE PARK
-                                   Office of the Registrar
-                                   College Park, MD 20742
-                                   UNOFFICIAL TRANSCRIPT
-                                FOR ADVISING PURPOSES ONLY 
+                 
                                      As of:  {date}
 {student_name}
 E-Mail: {student_email}
@@ -89,3 +84,4 @@ current_courses = [
     "               MATH401  0201    3.00  REG  DW   05/31/23 07/28/23  07/28/23",
     "               STAT401  0201    3.00  REG  DW   05/23/23 08/23/23  08/23/23",
     "               HACS200  0101    2.00  REG  A    05/
+]
