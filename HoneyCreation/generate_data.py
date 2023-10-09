@@ -1,3 +1,4 @@
+"""lol"""
 def create_transcript_file(student_info, transfer_credits, past_courses, current_courses):
     heading = """\
                  
@@ -83,5 +84,5 @@ current_courses = [
     "               CMSC451  0201    3.00  REG  AW   07/17/23           07/28/23",
     "               MATH401  0201    3.00  REG  DW   05/31/23 07/28/23  07/28/23",
     "               STAT401  0201    3.00  REG  DW   05/23/23 08/23/23  08/23/23",
-    "               HACS200  0101    2.00  REG  A    05/
+    "               HACS200  0101    2.00  REG  A    05/"
 ]
