@@ -1,5 +1,13 @@
 # 1G-Ray-of-Light
 
+##Sign-In
+The username is
+`fdeegbe`
+the password is
+```bash
+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
+```
+
 ## Bash-Demos
 ### Contains the demos for our creation and destruction scripts
 
@@ -25,12 +33,6 @@ This script will stop all forever (MITM) processes, stop and destroy the contain
 
 ## Testing
 When pushing/pulling on the development server, git will ask you for a password. You can use this fine-grained access token
-The username is
-`fdeegbe`
-the password is
-```bash
-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
-```
 
 ignore this
 ```bash
