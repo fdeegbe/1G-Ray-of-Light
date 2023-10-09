@@ -2,6 +2,7 @@
 
 # This script will run a monitoring check and print results in the /Monitoring directory.
 
+# Using Colors for readability
 RED='\033[0;31m'
 LB='\033[1;34m'
 CYAN='\033[1;36m'
@@ -11,8 +12,21 @@ sudo mkdir /Monitoring &> /dev/null
 sudo touch /Monitoring/test &> /dev/null
 
 
-echo -e "${CYAN}Logged in Users:" >> /Monitoring/test
+echo -e "${CYAN}Logged in Users:${NC}" >> /Monitoring/test
 who >> /Monitoring/test
 
-echo -e "${CYAN}Memory Usage in Mebibytes:" >> /Monitoring/test
+echo -e "${CYAN}Memory Usage in Mebibytes:${NC}" >> /Monitoring/test
 free -m >> /Monitoring/test
+
+echo -e "${CYAN}Disk Usage:${NC}" >> /Monitoring/test
+df -H >> /Monitoring/test
+
+echo -e "${CYAN}Running Containers:${NC}" >> /Monitoring/test
+sudo lxc-ls --running >> /Monitoring/test
+
+
+echo -e "${CYAN}Top 5 Processes by CPU Usage:${NC}" >> /Monitoring/test
+sudo ps aux --sort -%cpu | head -5 >> /Monitoring/test
+
+echo -e "${CYAN}Top 5 Processes by Memory Usage:${NC}" >> /Monitoring/test
+sudo ps aux --sort -%mem | head -5 >> /Monitoring/test
