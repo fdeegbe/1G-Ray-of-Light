@@ -23,7 +23,7 @@ sudo uname -r >> /Monitoring/test
 sudo uname -m >> /Monitoring/test
 
 load_val=$(cut -d " " -f 3 /proc/loadavg)
-echo -e -n "${CYAN}Average Load (CPU/IO) Past 10min:${NC} " >> /Monitoring/test
+echo -e -n "${CYAN}Average Load (CPU/IO) Past 15min:${NC} " >> /Monitoring/test
 sudo echo "${load_val}" >> /Monitoring/test
 
 num_processes=$(ps aux --no-headers | wc -l)
