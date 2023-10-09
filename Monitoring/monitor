@@ -11,6 +11,8 @@ NC='\033[0m'
 sudo mkdir /Monitoring &> /dev/null
 sudo touch /Monitoring/test &> /dev/null
 
+echo -e -n "${CYAN}Hostname:${NC}" >> /Monitoring/test
+sudo hostname >> /Monitoring/test
 
 echo -e "${CYAN}Logged in Users:${NC}" >> /Monitoring/test
 who >> /Monitoring/test
@@ -22,7 +24,7 @@ echo -e "${CYAN}Disk Usage:${NC}" >> /Monitoring/test
 df -H >> /Monitoring/test
 
 echo -e "${CYAN}Running Containers:${NC}" >> /Monitoring/test
-sudo lxc-ls --running >> /Monitoring/test
+sudo lxc-ls -f --running >> /Monitoring/test
 
 
 echo -e "${CYAN}Top 5 Processes by CPU Usage:${NC}" >> /Monitoring/test
