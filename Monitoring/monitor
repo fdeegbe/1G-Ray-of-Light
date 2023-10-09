@@ -11,8 +11,27 @@ NC='\033[0m'
 sudo mkdir /Monitoring &> /dev/null
 sudo touch /Monitoring/test &> /dev/null
 
-echo -e -n "${CYAN}Hostname:${NC}" >> /Monitoring/test
+echo -e -n "${CYAN}Hostname:${NC} " >> /Monitoring/test
 sudo hostname >> /Monitoring/test
+
+echo -e -n "${CYAN}LSB_Release:${NC} " >> /Monitoring/test
+sudo lsb_release -s -d >> /Monitoring/test
+
+echo -e "${CYAN}Current Kernel Information:${NC}" >> /Monitoring/test
+sudo uname -o >> /Monitoring/test
+sudo uname -r >> /Monitoring/test
+sudo uname -m >> /Monitoring/test
+
+load_val1=$(cut -d " " -f 1 /proc/loadavg)
+load_val1=$(cut -d " " -f 2 /proc/loadavg)
+load_val1=$(cut -d " " -f 3 /proc/loadavg)
+avg_load=$((${load_val1} + ${load_val2} + ${load_val3}) / 3)
+
+echo -e -n "${CYAN}Average Load:${NC} " >> /Monitoring/test
+sudo echo "${avg_load}" >> /Monitoring/test
+
+
+
 
 echo -e "${CYAN}Logged in Users:${NC}" >> /Monitoring/test
 who >> /Monitoring/test
