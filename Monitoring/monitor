@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# This script will run a monitoring check and print results in the /Monitoring directory.
+
+RED='\033[0;31m'
+
+sudo mkdir /Monitoring
+sudo touch /Monitoring/test
+
+echo -e "Testing this ${RED}red" >> /Monitoring/test
+
