@@ -22,16 +22,20 @@ sudo uname -o >> /Monitoring/test
 sudo uname -r >> /Monitoring/test
 sudo uname -m >> /Monitoring/test
 
-load_val1=$(cut -d " " -f 1 /proc/loadavg)
-load_val1=$(cut -d " " -f 2 /proc/loadavg)
-load_val1=$(cut -d " " -f 3 /proc/loadavg)
-avg_load=$((${load_val1} + ${load_val2} + ${load_val3}) / 3)
+load_val=$(cut -d " " -f 3 /proc/loadavg)
+# load_val2=$(cut -d " " -f 2 /proc/loadavg)
+# load_val3=$(cut -d " " -f 3 /proc/loadavg)
+# avg_load=$((${load_val1} + ${load_val2} + ${load_val3}) / 3)
 
-echo -e -n "${CYAN}Average Load:${NC} " >> /Monitoring/test
-sudo echo "${avg_load}" >> /Monitoring/test
+echo -e -n "${CYAN}Average Load (CPU/IO) Past 10min:${NC} " >> /Monitoring/test
+sudo echo "${load_val}" >> /Monitoring/test
 
+# num_processes=$(cut -d " " -f 4 /proc/loadavg)
+echo -e -n "${CYAN}Number of Processes:${NC} " >> /Monitoring/test
+sudo ps aux --no-headers | wc -l" >> /Monitoring/test
 
-
+echo -e -n "${CYAN}Uptime:${NC} " >> /Monitoring/test
+uptime -p >> /Monitoring/test
 
 echo -e "${CYAN}Logged in Users:${NC}" >> /Monitoring/test
 who >> /Monitoring/test
