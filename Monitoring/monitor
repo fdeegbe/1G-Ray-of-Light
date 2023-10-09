@@ -23,19 +23,15 @@ sudo uname -r >> /Monitoring/test
 sudo uname -m >> /Monitoring/test
 
 load_val=$(cut -d " " -f 3 /proc/loadavg)
-# load_val2=$(cut -d " " -f 2 /proc/loadavg)
-# load_val3=$(cut -d " " -f 3 /proc/loadavg)
-# avg_load=$((${load_val1} + ${load_val2} + ${load_val3}) / 3)
-
 echo -e -n "${CYAN}Average Load (CPU/IO) Past 10min:${NC} " >> /Monitoring/test
 sudo echo "${load_val}" >> /Monitoring/test
 
-# num_processes=$(cut -d " " -f 4 /proc/loadavg)
+num_processes=$(ps aux --no-headers | wc -l)
 echo -e -n "${CYAN}Number of Processes:${NC} " >> /Monitoring/test
-sudo ps aux --no-headers | wc -l" >> /Monitoring/test
+sudo ps aux --no-headers | wc -l >> /Monitoring/test
 
 echo -e -n "${CYAN}Uptime:${NC} " >> /Monitoring/test
-uptime -p >> /Monitoring/test
+sudo uptime -p >> /Monitoring/test
 
 echo -e "${CYAN}Logged in Users:${NC}" >> /Monitoring/test
 who >> /Monitoring/test
@@ -49,9 +45,11 @@ df -H >> /Monitoring/test
 echo -e "${CYAN}Running Containers:${NC}" >> /Monitoring/test
 sudo lxc-ls -f --running >> /Monitoring/test
 
+echo -e "${CYAN}Forever Processes:${NC}" >> /Monitoring/test
+sudo forever list 2> /dev/null >> /Monitoring/test
 
 echo -e "${CYAN}Top 5 Processes by CPU Usage:${NC}" >> /Monitoring/test
-sudo ps aux --sort -%cpu | head -5 >> /Monitoring/test
+sudo ps aux --sort -%cpu | head -6 >> /Monitoring/test
 
 echo -e "${CYAN}Top 5 Processes by Memory Usage:${NC}" >> /Monitoring/test
-sudo ps aux --sort -%mem | head -5 >> /Monitoring/test
+sudo ps aux --sort -%mem | head -6 >> /Monitoring/test
