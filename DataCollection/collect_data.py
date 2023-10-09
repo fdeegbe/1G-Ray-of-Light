@@ -1,3 +1,4 @@
+"""Module that aggregates data from our MITM logs into a singular file for a period of time"""
 import os
 import re
 from datetime import date
@@ -14,7 +15,7 @@ command_pattern = re.compile("[Debug] [SHELL] Line from reader: (.*) ")
 # Go through log files and condense stuff
 for filename in os.listdir("/MITM/mitm_logs/" + str(today)):
     print("Filename: " + str(filename))
-    file = open("/MITM/mitm_logs/" + str(today) + "/" + filename)
+    file = open("/MITM/mitm_logs/" + str(today) + "/" + filename, encoding="utf-8")
 
     # command: count
     command_dict = {}
@@ -22,7 +23,7 @@ for filename in os.listdir("/MITM/mitm_logs/" + str(today)):
     for line in file:
         m = command_pattern.match(line)
         if m:
-            if command_dict.has_key(m.group(1)):
+            if command_dict in m.group(1):
                 command_dict[m.group(1)] += 1
             else:
                 command_dict[m.group(1)] = 1
@@ -40,7 +41,7 @@ for filename in os.listdir("/MITM/mitm_logs/" + str(today)):
 
     os.system("sudo touch /MITM/data/" + filename)
     os.system("sudo chmod 777 /MITM/data/" + filename)
-    new_file = open("/MITM/data/" + filename, "w")
+    new_file = open("/MITM/data/" + filename, "w", encoding="utf-8")
 
     new_file.write(commands)
 
