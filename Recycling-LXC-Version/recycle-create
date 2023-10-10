@@ -34,6 +34,9 @@ if [ $container_variant == 1 ]
 then
     # level 1
     sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf \"This is a test message, beware! - Level 1\" >> /etc/update-motd.d/00-header'
+    # Install all the things
+    # Poison all the things
+    # Change MOTD
 elif [ $container_variant == 2 ]
 then
     # level 2
