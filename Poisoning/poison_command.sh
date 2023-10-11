@@ -22,8 +22,8 @@ else
     sudo lxc-attach -n $container_name -- mv /usr/bin/tar /usr/bin/real-tar
     sudo lxc-attach -n $container_name -- mv /usr/bin/gunzip /usr/bin/real-gunzip
     sudo lxc-attach -n $container_name -- mv /usr/bin/gzip /usr/bin/real-gzip
-    sudo lxc-attach -n $container_name -- mv /usr/bin/bzip /usr/bin/real-bzip
     sudo lxc-attach -n $container_name -- mv /usr/bin/bzip2 /usr/bin/real-bzip2
+    sudo lxc-attach -n $container_name -- mv /usr/bin/bunzip2 /usr/bin/real-bunzip2
     sudo lxc-attach -n $container_name -- mv /usr/bin/zip /usr/bin/real-zip
     sudo lxc-attach -n $container_name -- mv /usr/bin/unzip /usr/bin/real-unzip
     sudo lxc-attach -n $container_name -- mv /usr/bin/rar /usr/bin/real-rar
