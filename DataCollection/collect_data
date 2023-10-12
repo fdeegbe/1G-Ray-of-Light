@@ -9,6 +9,9 @@ d=$(date -d "1 day ago" +%Y-%m-%d)
 for filename in /MITM/mitm_logs/$d/*.log; do
     echo $filename
 
-    cat $filename | grep "line from reader: "
+    # First thing after line reader
+    cat $filename | grep "line from reader: " | cut -d " " -f 9
+
+    # Might be interesting to count number of sudos
 
 done
