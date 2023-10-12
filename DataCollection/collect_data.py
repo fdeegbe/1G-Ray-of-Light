@@ -9,7 +9,7 @@ yesterday = today - timedelta(days = 1)
 
 os.system("sudo mkdir /MITM/data")
 
-command_pattern = re.compile("[Debug] [SHELL] Line from reader: (.*) ")
+command_pattern = re.compile("[Debug] [SHELL] line from reader: (.*) ")
 
 # swap yesterday for today when done with testing
 # Go through log files and condense stuff

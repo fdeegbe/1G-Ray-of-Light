@@ -3,10 +3,12 @@
 # Bash attempt at data collection
 
 # d=$(date +%Y-%m-%d)
+# This will go through yesterday's files
 d=$(date -d "1 day ago" +%Y-%m-%d)
 
 for filename in /MITM/mitm_logs/$d/*.log; do
     echo $filename
 
+    cat $filename | grep "line from reader: "
 
 done
