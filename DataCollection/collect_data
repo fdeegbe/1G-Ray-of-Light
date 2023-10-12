@@ -2,11 +2,11 @@
 
 # Bash attempt at data collection
 
-d=$(date +%Y-%m-%d)
-# d=$(date -d "1 day ago" +%Y-%m-%d)
+# d=$(date +%Y-%m-%d)
+d=$(date -d "1 day ago" +%Y-%m-%d)
 
 for filename in /MITM/mitm_logs/$d/*.log; do
-    echo filename
+    echo $filename
 
 
 done
