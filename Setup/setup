@@ -30,5 +30,5 @@ chmod +x /1G-Ray-of-Light/DataCollection/collect_data
 mkdir /Data
 touch /Data/cumulative
 touch /Data/cumulative_with_attackers
-echo "Start_Time End_Time Time_In_System Level Sudo_Count Command_Count" >> /Data/cumulative
-echo "Start_Time End_Time Time_In_System Level Sudo_Count Command_Count" >> /Data/cumulative_with_attackers
+echo "Start_Time End_Time Time_In_System Level Sudo_Count Command_Count" | sudo tee Data/cumulative
+echo "Start_Time End_Time Time_In_System Level Sudo_Count Command_Count" | sudo tee /Data/cumulative_with_attackers

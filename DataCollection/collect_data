@@ -14,17 +14,23 @@ for filename in /MITM/mitm_logs/$d/*.log; do
     filepath=$(echo "/MITM/mitm_logs/$d/$filename")
 
     # Get time MITM started
-    start_time=$(cat $filepath | grep "SSH man-in-the-middle server for" | cut -d " " -f 2)
+    start_time=$(cat $filepath | grep "SSH man-in-the-middle server for" | cut -d " " -f 2 | cut -d "." -f 1)
     # If you don't want decimal points:
     # start_time=$(cat $filename | grep "SSH man-in-the-middle server for" | cut -d " " -f 2 | cut -d "." -f 1)
 
     # LXC Stream open and stream close (use as proxy for start and end of attacker session, other values like )
-    LXC_stream_start=$(cat $filepath | grep "\[LXC Streams] New Stream" | cut -d " " -f 2)
-    LXC_stream_end=$(cat $filepath | grep "\[LXC Streams] Removed Stream" | cut -d " " -f 2)
-    time_in_system=$(($LXC_stream_end - $LXC_stream_start))
-    # What happens when start and stop don't exist because no attacker?
+    LXC_stream_start_time=$(cat $filepath | grep "\[LXC Streams] New Stream" | cut -d " " -f 2 | cut -d "." -f 1)
+    LXC_stream_end_time=$(cat $filepath | grep "\[LXC Streams] Removed Stream" | cut -d " " -f 2 | cut -d "." -f 1)
+    # time_in_system=$(($LXC_stream_end - $LXC_stream_start))
 
-    
+
+    LXC_stream_start=$(cat $filepath | grep "\[LXC Streams] New Stream" | cut -d " " -f 1,2 | cut -d "." -f 1)
+    LXC_stream_end=$(cat $filepath | grep "\[LXC Streams] Removed Stream" | cut -d " " -f 1,2 | cut -d "." -f 1)
+
+    seconds1=$(date --date "$LXC_stream_start" +%s)
+    seconds2=$(date --date "$LXC_stream_end" +%s)
+    time_in_system=$((seconds1 - seconds2))
+
 
     # Get level of system
     level=$(echo $filepath | cut -d "-" -f 3 | cut -d ":" -f 2 | cut -d "." -f 1)
@@ -47,9 +53,9 @@ for filename in /MITM/mitm_logs/$d/*.log; do
 
     echo "$LXC_stream_start $LXC_stream_end $time_in_system $level $sudo_count $command_count" >> $total_collection_filepath
 
-    if [[ $time_in_system -ne "" ]]
+    if [[ $time_in_system -eq 0 ]]
     then
-        echo "$LXC_stream_start $LXC_stream_end $time_in_system $level $sudo_count $command_count" >> $total_collection_attackers_filepath
+        echo "$LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count" >> $total_collection_attackers_filepath
     fi
 done
 
