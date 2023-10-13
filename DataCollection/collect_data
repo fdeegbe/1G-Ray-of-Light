@@ -47,6 +47,17 @@ for filename in /MITM/mitm_logs/$d/*.log; do
 
 
     # Here do we want to do # of wget and curl stuff to see how much malware commands
+    # We might need to redo this, replacing "sudo" and taking only the first one before grepping for the specific command
+    wget_count=$(cat $filename | grep "line from reader: " | grep "wget" | wc -l)
+    curl_count=$(cat $filename | grep "line from reader: " | grep "curl" | wc -l)
+    malware_count=$((wget_count + curl_count))
+
+    # Number of banners seen (depends on poisoned commands)
+    # TODO
+
+
+
+    # Number of other commands?? maybe categorize, will have to try and see
 
 
 
