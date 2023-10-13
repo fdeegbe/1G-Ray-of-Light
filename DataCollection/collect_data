@@ -1,19 +1,59 @@
 #!/bin/bash
 
-# Bash attempt at data collection
+# Data collection
 
 # d=$(date +%Y-%m-%d)
 # This will go through yesterday's files
 d=$(date -d "1 day ago" +%Y-%m-%d)
 
+total_collection_filepath=$("/Data/cumulative")
+total_collection_attackers_filepath=$("/Data/cumulative_with_attackers")
+
 for filename in /MITM/mitm_logs/$d/*.log; do
     echo $filename
 
-    # First thing after line reader
-    cat $filename | grep "line from reader: " | cut -d " " -f 9
+    # Get time MITM started
+    start_time=$(cat $filename | grep "SSH man-in-the-middle server for" | cut -d " " -f 2)
+    # If you don't want decimal points:
+    # start_time=$(cat $filename | grep "SSH man-in-the-middle server for" | cut -d " " -f 2 | cut -d "." -f 1)
 
-    # Might be interesting to count number of sudos
+    # Get time attacker broke auto access
+    attacker_enter_system=$(cat $filename | grep "\[Debug] \[LXC-Auth] Attacker authenticated and is inside container" | cut -d " " -f 2)
+
+
+    # Get time MITM ended -> Can't find
+
+
+    # LXC Stream open and stream close (use as proxy for start and end of attacker session, other values like )
+    LXC_stream_start=$(cat $filename | grep "\[LXC Streams] New Stream" | cut -d " " -f 2)
+    LXC_stream_end=$(cat $filename | grep "\[LXC Streams] Removed Stream" | cut -d " " -f 2)
+
+    # Get time attacker left
+
+
+    # Get level of system
+    level=$(echo $filename | cut -d "-" -f 3 | cut -d ":" -f 2 | cut -d "." -f 1)
+
+    # First thing after line reader
+    # cat $filename | grep "line from reader: " | cut -d " " -f 9
+
+    # Count number of sudos
     sudo_count=$(grep -o 'sudo' "$filename" | wc -l)
+
+    # Count number of commands (ignoring empty lines)
+    command_count=$(cat $filename | grep "line from reader: " | cut -d " " -f 9 | grep "\S" | wc -l)
+
+
     # I think we could parse that into python, or push useful stats to one file. What do you think?
     echo "Number of 'sudo' commands in $filename: $sudo_count"
 done
+
+
+
+
+# Random commands that we might want to keep a hold of:
+
+# Get time attacker connected (last one if multiple connections made)
+# attacker_connection_time=$(cat $filename | grep "\[Debug] \[Connection] Attacker connected:" | tail -1 | cut -d " " -f 2)
+
+

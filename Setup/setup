@@ -22,3 +22,11 @@ echo -e "*/25 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle\n" | sudo c
 
 # Ensure execute permissions are added on the recycle script.
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/recycle
+
+chmod +x /1G-Ray-of-Light/DataCollection/collect_data
+
+
+# Setup for data collection.
+sudo mkdir /Data
+sudo touch /Data/cumulative
+sudo touch /Data/cumulative_with_attackers
