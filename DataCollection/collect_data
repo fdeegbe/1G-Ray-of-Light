@@ -13,5 +13,7 @@ for filename in /MITM/mitm_logs/$d/*.log; do
     cat $filename | grep "line from reader: " | cut -d " " -f 9
 
     # Might be interesting to count number of sudos
+    sudo_count=$(grep -o 'sudo' "$filename" | wc -l)
     # I think we could parse that into python, or push useful stats to one file. What do you think?
+    echo "Number of 'sudo' commands in $filename: $sudo_count"
 done
