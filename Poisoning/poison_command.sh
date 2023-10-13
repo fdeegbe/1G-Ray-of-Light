@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# if you run this with a container more than once you will die
 if [ $# -ne 1 ]
 then
     echo "Usage: container name"
