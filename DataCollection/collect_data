@@ -32,7 +32,8 @@ for filename in /MITM/mitm_logs/$d/*.log; do
 
 
     # Get level of system
-    level=$(echo $filename | cut -d "-" -f 3 | cut -d ":" -f 2 | cut -d "." -f 1)
+    level=$(echo $filename | cut -d "-" -f 5 | cut -d ":" -f 2 | cut -d "." -f 1)
+    #ORIGINAL: level=$(echo $filepath | cut -d "-" -f 3 | cut -d ":" -f 2 | cut -d "." -f 1)
 
     # First thing after line reader
     # cat $filename | grep "line from reader: " | cut -d " " -f 9
