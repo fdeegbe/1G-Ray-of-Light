@@ -28,7 +28,7 @@ for filename in /MITM/mitm_logs/$d/*.log; do
 
     seconds1=$(date --date "$LXC_stream_start" +%s)
     seconds2=$(date --date "$LXC_stream_end" +%s)
-    time_in_system=$((seconds1 - seconds2))
+    time_in_system=$((seconds2 - seconds1))
 
 
     # Get level of system
