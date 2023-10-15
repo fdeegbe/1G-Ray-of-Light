@@ -41,9 +41,9 @@ for filename in /MITM/mitm_logs/$d/*.log; do
     # Count number of sudos
     sudo_count=$(grep -o 'sudo' "$filename" | wc -l)
 
+
     # Count number of commands (ignoring empty lines)
     command_count=$(cat $filename | grep "line from reader: " | cut -d " " -f 9 | grep "\S" | wc -l)
-
 
 
     # Here do we want to do # of wget and curl stuff to see how much malware commands
@@ -66,7 +66,7 @@ for filename in /MITM/mitm_logs/$d/*.log; do
 
     if [[ $time_in_system -ne 0 ]]
     then
-        echo "$LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count" >> $total_collection_attackers_filepath
+        echo "$LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count $malware_count" >> $total_collection_attackers_filepath
     fi
 done
 
