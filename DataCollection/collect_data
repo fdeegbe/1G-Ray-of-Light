@@ -62,11 +62,11 @@ for filename in /MITM/mitm_logs/$d/*.log; do
 
 
 
-    echo "$LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count" >> $total_collection_filepath
+    echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count" >> $total_collection_filepath
 
     if [[ $time_in_system -ne 0 ]]
     then
-        echo "$LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count $malware_count" >> $total_collection_attackers_filepath
+        echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count $malware_count" >> $total_collection_attackers_filepath
     fi
 done
 
