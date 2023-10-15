@@ -1,3 +1,4 @@
 #!/bin/bash
-/usr/bin/real-nano "$@"
+
+/usr/bin/real-more "$@"
 sudo cat /usr/.warning_messages/Write.txt

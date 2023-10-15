@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "message"
-sudo /usr/bin/real-su $@
+sudo cat /usr/.warning_messages/Sudo.txt
+sudo /usr/bin/real-su "$@"

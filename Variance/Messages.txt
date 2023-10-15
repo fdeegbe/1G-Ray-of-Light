@@ -125,6 +125,8 @@ vim
 cat
 nano
 emacs
+more 
+less
 
 # Level 2:
 ***********************************

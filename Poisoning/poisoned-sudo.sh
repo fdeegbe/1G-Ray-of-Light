@@ -1,4 +1,4 @@
 #!/bin/bash
 
-/usr/bin/real-sudo "$@"
-echo "You have just used sudo, you will die in 30 seconds"
+sudo cat /usr/.warning_messages/Sudo.txt
+sudo /usr/bin/real-sudo "$@"
