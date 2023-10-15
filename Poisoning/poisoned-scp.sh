@@ -1,4 +1,7 @@
 #!/bin/bash
-
-/usr/bin/real-scp "$@" >> /var/log/.downloads/scp_log 2> /dev/null
-/usr/bin/real-scp "$@"
+./warning_download_copy.sh
+read -p "Please acknowledge the warning above. (Y):" response
+if [ "$response" == "Y" || "$response" == "y" || "$response" == "Yes" || "$response" == "YES" || "$response" == "yes"]
+then
+  /usr/bin/real-scp "$@"
+fi
