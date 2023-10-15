@@ -4,7 +4,6 @@ wget
 curl
 scp
 rsync
-ftp/sftp
 git
 
 # Level 2:
