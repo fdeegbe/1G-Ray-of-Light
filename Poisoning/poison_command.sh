@@ -6,11 +6,11 @@ then
     exit 1
 else
     container_name=$1
-    #make the directory and give it permissions
+    # make the directory and give it permissions
     sudo lxc-attach -n $container_name -- mkdir -p /var/log/.downloads
     sudo lxc-attach -n $container_name -- chmod 777 /var/log/.downloads
 
-    #Moves the real commands into their paths named real-command
+    # Moves the real commands into their paths named real-command
     sudo lxc-attach -n $container_name -- mv /usr/bin/wget /usr/bin/real-wget
     sudo lxc-attach -n $container_name -- mv /usr/bin/curl /usr/bin/real-curl
     sudo lxc-attach -n $container_name -- mv /usr/bin/scp /usr/bin/real-scp
@@ -32,8 +32,19 @@ else
     sudo lxc-attach -n $container_name -- mv /usr/bin/vim /usr/bin/real-vim
     sudo lxc-attach -n $container_name -- mv /usr/bin/nano /usr/bin/real-nano
     sudo lxc-attach -n $container_name -- mv /usr/bin/emacs /usr/bin/real-emacs
+    sudo lxc-attach -n $container_name -- mv /usr/bin/more /usr/bin/real-more
+    sudo lxc-attach -n $container_name -- mv /usr/bin/less /usr/bin/real-less
 
     sudo lxc-attach -n $container_name -- mv /usr/bin/sudo /usr/bin/real-sudo
+    sudo lxc-attach -n $container_name -- mv /usr/bin/su /usr/bin/real-su
+
+    sudo lxc-attach -n $container_name -- mv /usr/sbin/adduser /usr/sbin/real-adduser
+    sudo lxc-attach -n $container_name -- mv /usr/sbin/deluser /usr/sbin/real-deluser
+    sudo lxc-attach -n $container_name -- mv /usr/bin/passwd /usr/bin/real-passwd
+    sudo lxc-attach -n $container_name -- mv /usr/bin/chmod /usr/bin/real-chmod
+    sudo lxc-attach -n $container_name -- mv /usr/sbin/groupadd /usr/sbin/real-groupadd
+    sudo lxc-attach -n $container_name -- mv /usr/sbin/groupmod /usr/sbin/real-groupmod
+    sudo lxc-attach -n $container_name -- mv /usr/sbin/groupdel /usr/sbin/real-groupdel
     
      #Creates the log files and gives them permissions
     sudo lxc-attach -n $container_name -- bash -c "touch /usr/bin/wget && chmod 755 /usr/bin/wget"
@@ -80,9 +91,34 @@ else
     sudo cp poisoned-unrar.sh /var/lib/lxc/$container_name/rootfs/usr/bin/unrar
 
     sudo cp poisoned-vim.sh /var/lib/lxc/$container_name/rootfs/usr/bin/vim
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/vim"
     sudo cp poisoned-nano.sh /var/lib/lxc/$container_name/rootfs/usr/bin/nano
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/nano"
     sudo cp poisoned-emacs.sh /var/lib/lxc/$container_name/rootfs/usr/bin/emacs
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/emacs"
     sudo cp poisoned-sudo.sh /var/lib/lxc/$container_name/rootfs/usr/bin/sudo
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/sudo"
+    sudo cp poisoned-su.sh /var/lib/lxc/$container_name/rootfs/usr/bin/su
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/su"
+    sudo cp poisoned-more.sh /var/lib/lxc/$container_name/rootfs/usr/bin/more
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/more"
+    sudo cp poisoned-less.sh /var/lib/lxc/$container_name/rootfs/usr/bin/less
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/less"
+
+    sudo cp poisoned-adduser.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/adduser
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/adduser"
+    sudo cp poisoned-deluser.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/deluser
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/deluser"
+    sudo cp poisoned-groupadd.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/groupadd
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/groupadd"
+    sudo cp poisoned-groupdel.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/groupdel
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/groupdel"
+    sudo cp poisoned-groupmod.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/groupmod
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/groupmod"
+    sudo cp poisoned-chmod.sh /var/lib/lxc/$container_name/rootfs/usr/bin/chmod
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/chmod"
+    sudo cp poisoned-passwd.sh /var/lib/lxc/$container_name/rootfs/usr/bin/passwd
+    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/passwd"
 
     echo "Commands have been poisoned"
 fi
