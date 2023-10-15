@@ -1,8 +1,8 @@
 #!/bin/bash
 # if you run this with a container more than once you will die
-if [ $# -ne 1 ]
+if [ $# -ne 2 ]
 then
-    echo "Usage: container name"
+    echo "Usage: container name and variance level"
     exit 1
 else
     container_name=$1
@@ -10,6 +10,7 @@ else
     sudo lxc-attach -n $container_name -- mkdir -p /var/log/.downloads
     sudo lxc-attach -n $container_name -- chmod 777 /var/log/.downloads
 
+    sudo cp -r "./level$2" "/var/lib/lxc/$container_name/rootfs/usr/.warning_messages"
     # Moves the real commands into their paths named real-command
     sudo lxc-attach -n $container_name -- mv /usr/bin/wget /usr/bin/real-wget
     sudo lxc-attach -n $container_name -- mv /usr/bin/curl /usr/bin/real-curl
