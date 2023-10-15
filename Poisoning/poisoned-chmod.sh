@@ -1,3 +1,3 @@
 #!/bin/bash
 echo "message"
-sudo /usr/bin/real-sudo $@
+sudo /usr/bin/real-chmod $@

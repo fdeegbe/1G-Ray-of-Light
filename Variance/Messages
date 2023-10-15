@@ -9,34 +9,287 @@ git
 
 # Level 2:
 ***********************************
-“Please keep in mind that by 
+Please keep in mind that by 
 accessing this system, you agree 
 to all our guidelines relating to
 the upload/download of files onto 
-this system”
-**********************************
+this system
+***********************************
 
 
 # Level 3:
+************************************
+You have either uploaded. 
+downloaded, or copied files on this
+system. 
+**User activity and IP are 
+monitored and recorded every 24 
+hours, and usage is disclosed to 
+authorized personnel.** 
+Any unauthorized or unlawful attempt 
+to exfiltrate data or upload 
+malicious software onto the system 
+will violate Md. Code Ann. Com​m. 
+Law 14-3504 ​and result in 
+punishments up to $10,000 in fines.
 ***********************************
-“You have entered into a secured linux environment unauthorized access is strictly prohibited. User activity and IP are monitored and recorded every 24 hours, and usage is disclosed to authorized personnel. Any unauthorized or unlawful attempt to access or manipulate the system will violate **INSERT Maryland State Law *** and result in punishments up to $10,000 in fines. ”
-**********************************
+
+# Level 4
+
+*************************************************************************
+You are accessing a U.S. Government (USG) Information System (IS) that
+is provided for USG-authorized use only. By using this(which includes 
+any device attached to this IS), you have consented to these conditions: 
+                                           
+- Any communication or data transiting or stored on this system may be 
+    disclosed or used for any lawful government purpose.                       
+- Unauthorized or improper use of this system may result in disciplinary 
+    action, as well as civil and criminal penalties.
+- You have been notified that the use of this system constitutes consent 
+    to monitoring and recording.                                               
+- Your IP address, login information, and data transactions will be logged 
+    and monitored continuously for cybersecurity and investigative purposes.   
+
+Violation or unauthorized use of this system violates federal law under 
+United States Code (U.S.C.), Title 18, Section 1030, which provides for 
+fines up to $50,000 and imprisonment up to 20 years for unauthorized access 
+or for exceeding authorized access to government computers.                                             
+                                                                         
+You have already acknowledged your understanding with these rules, this 
+is simply a warning because a transfer of data was detected. 
+
+*************************************************************************
 
 
 ## Compression commands
+# Tools
 tar
 gzip/gunzip
 bzip2/bunzip2
 zip/unzip
 rar/unrar
 
+# Level 2:
+***********************************
+Please be aware that by accessing 
+this system, you agree to all our 
+guidelines relating to the access 
+of encrypted and compressed files
+***********************************
+
+
+# Level 3:
+************************************
+You have performed zipping/unzipping
+operations on this system. 
+**User activity and IP are 
+monitored and recorded every 24 
+hours, and usage is disclosed to 
+authorized personnel.** 
+Any unauthorized or unlawful attempt 
+to access confidential files on the 
+system will violate Md. Code Ann. 
+Com​m. Law 14-3504 ​and result in 
+punishments up to $10,000 in fines.
+***********************************
+
+# Level 4
+
+*************************************************************************
+You are accessing a U.S. Government (USG) Information System (IS) that
+is provided for USG-authorized use only. By using this(which includes 
+any device attached to this IS), you have consented to these condition: 
+                                           
+- Any communication or data transiting or stored on this system may be 
+    disclosed or used for any lawful government purpose.                       
+- Unauthorized or improper use of this system may result in disciplinary 
+    action, as well as civil and criminal penalties.
+- You have been notified that the use of this system constitutes consent 
+    to monitoring and recording.                                               
+- Your IP address, login information, and data transactions will be logged 
+    and monitored continuously for cybersecurity and investigative purposes.   
+
+Violation or unauthorized use of this system violates federal law under 
+United States Code (U.S.C.), Title 18, Section 1030, which provides for 
+fines up to $50,000 and imprisonment up to 20 years for unauthorized access 
+or for exceeding authorized access to government computers.                                             
+                                                                         
+You have already acknowledged your understanding with these rules, this 
+is simply a reminder because a compression/extraction operation was 
+detected
+
+*************************************************************************
 
 ## Reading/writing files
+# Tools
 vim
 cat
 nano
 emacs
 
+# Level 2:
+***********************************
+Please be aware that by accessing 
+this system, you agree to all our 
+guidelines relating to the access 
+of files
+***********************************
 
-## Permissions Elevation
-sudo
+
+# Level 3:
+************************************
+You have performed read/write
+operations on this system. 
+**User activity and IP are 
+monitored and recorded every 24 
+hours, and usage is disclosed to 
+authorized personnel.** 
+Any unauthorized or unlawful attempt 
+to access/modify files on the 
+system will violate Md. Code Ann. 
+Com​m. Law 14-3504 ​and result in 
+punishments up to $10,000 in fines.
+***********************************
+
+# Level 4
+
+*************************************************************************
+You are accessing a U.S. Government (USG) Information System (IS) that
+is provided for USG-authorized use only. By using this(which includes 
+any device attached to this IS), you have consented to these condition: 
+                                           
+- Any communication or data transiting or stored on this system may be 
+    disclosed or used for any lawful government purpose.                       
+- Unauthorized or improper use of this system may result in disciplinary 
+    action, as well as civil and criminal penalties.
+- You have been notified that the use of this system constitutes consent 
+    to monitoring and recording.                                               
+- Your IP address, login information, and data transactions will be logged 
+    and monitored continuously for cybersecurity and investigative purposes.   
+
+Violation or unauthorized use of this system violates federal law under 
+United States Code (U.S.C.), Title 18, Section 1030, which provides for 
+fines up to $50,000 and imprisonment up to 20 years for unauthorized access 
+or for exceeding authorized access to government computers.                                             
+                                                                         
+You have already acknowledged your understanding with these rules, this 
+is simply a reminder because a read/write operation was detected
+
+*************************************************************************
+
+## User Settings
+adduser
+passwd
+chmod
+deluser
+groupadd
+groupdel
+groupmod
+
+
+# Level 2:
+***********************************
+Please be aware that by accessing 
+this system, you agree to all our 
+guidelines relating to the usage of
+permission-altering commands
+***********************************
+
+
+# Level 3:
+************************************
+You have performed user/file 
+permission alteration operations on 
+this system. 
+**User activity and IP are 
+monitored and recorded every 24 
+hours, and usage is disclosed to 
+authorized personnel.** 
+Any unauthorized or unlawful attempt 
+to change user/file settings on the 
+system will violate Md. Code Ann. 
+Com​m. Law 14-3504 ​and result in 
+punishments up to $10,000 in fines.
+***********************************
+
+# Level 4
+
+*************************************************************************
+You are accessing a U.S. Government (USG) Information System (IS) that
+is provided for USG-authorized use only. By using this(which includes 
+any device attached to this IS), you have consented to these condition: 
+                                           
+- Any communication or data transiting or stored on this system may be 
+    disclosed or used for any lawful government purpose.                       
+- Unauthorized or improper use of this system may result in disciplinary 
+    action, as well as civil and criminal penalties.
+- You have been notified that the use of this system constitutes consent 
+    to monitoring and recording.                                               
+- Your IP address, login information, and data transactions will be logged 
+    and monitored continuously for cybersecurity and investigative purposes.   
+
+Violation or unauthorized use of this system violates federal law under 
+United States Code (U.S.C.), Title 18, Section 1030, which provides for 
+fines up to $50,000 and imprisonment up to 20 years for unauthorized 
+access or for exceeding authorized access to government computers.                                             
+                                                                         
+You have already acknowledged your understanding with these rules, this 
+is simply a warning/reminder because an alteration of user/file 
+permission settings was detected
+
+*************************************************************************
+
+## Sudo
+# Tools
+sudo 
+su
+
+# Level 2:
+***********************************
+Please be aware that by accessing 
+this system, you agree to all our 
+guidelines relating to root-level
+permissions/commands
+***********************************
+
+
+# Level 3:
+************************************
+You have used sudo on this system. 
+**User activity and IP are 
+monitored and recorded every 24 
+hours, and usage is disclosed to 
+authorized personnel.** 
+Any unauthorized/unlawful attempt 
+to use root-level access on this 
+system will violate Md. Code Ann. 
+Com​m. Law 14-3504 ​and result in 
+punishments up to $10,000 in fines.
+***********************************
+
+# Level 4
+
+*************************************************************************
+You are accessing a U.S. Government (USG) Information System (IS) that
+is provided for USG-authorized use only. By using this(which includes 
+any device attached to this IS), you have consented to these condition: 
+                                           
+- Any communication or data transiting or stored on this system may be 
+    disclosed or used for any lawful government purpose.                       
+- Unauthorized or improper use of this system may result in disciplinary 
+    action, as well as civil and criminal penalties.
+- You have been notified that the use of this system constitutes consent 
+    to monitoring and recording.                                               
+- Your IP address, login information, and data transactions will be logged 
+    and monitored continuously for cybersecurity and investigative purposes.   
+
+Violation or unauthorized use of this system violates federal law under 
+United States Code (U.S.C.), Title 18, Section 1030, which provides for 
+fines up to $50,000 and imprisonment up to 20 years for unauthorized access 
+or for exceeding authorized access to government computers.                                             
+                                                                         
+You have already acknowledged your understanding with these rules, this 
+is simply a reminder because an attempt was made to switch or elevate 
+permission.
+
+*************************************************************************

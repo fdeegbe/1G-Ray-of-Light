@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "Sampel poisoned bunzip2.sh"
+echo "Sample poisoned bunzip2.sh"
 
