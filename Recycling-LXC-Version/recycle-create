@@ -33,18 +33,18 @@ echo "Y" | sudo lxc-attach -n $container_name -- sudo apt install openssh-server
 if [ $container_variant == 1 ]
 then
     # level 1
-    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf \"This is a test message, beware! - Level 1\" >> /etc/update-motd.d/00-header'
+    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf \"This is a test message, beware! - Level 1\" > /etc/update-motd.d/00-header'
     # Install all the things
     # Poison all the things
     # Change MOTD
 elif [ $container_variant == 2 ]
 then
     # level 2
-    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf \"Welcome to our secure system. Please adhere to all guidelines and use responsibly\" >> /etc/update-motd.d/00-header'
+    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf \"Welcome to our secure system. Please adhere to all guidelines and use responsibly\" > /etc/update-motd.d/00-header'
 elif [ $container_variant == 3 ]
 then
     # level 3
-    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf \"Welcome\" >> /etc/update-motd.d/00-header && \
+    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf \"Welcome\" > /etc/update-motd.d/00-header && \
     sudo echo printf \"By accessing this information system, you agree to comply with all applicable use policies and legal provisions.\n                                
                         Please be aware: \n                                                          
                         - This system is monitored every 24 hours to ensure proper functioning and to verify secure usage. \n                                                
@@ -82,7 +82,7 @@ then
                                                 unauthorized access or for exceeding authorized access to government computers. \n                                      
                                                                          
                                                 By proceeding, you acknowledge your understanding and compliance with these warnings and consent to \n
-                                                all of the above provisions.\" >> /etc/update-motd.d/00-header'
+                                                all of the above provisions.\" > /etc/update-motd.d/00-header'
 fi
 
 # Command needed for MITM server routing.

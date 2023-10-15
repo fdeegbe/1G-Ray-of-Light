@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Check if the correct number of arguments is provided
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <directory_to_zip> <zip_filename>"
+    exit 1
+fi
+
+# Get the directory path and zip filename from the arguments
+directory_to_zip="$1"
+zip_filename="$2"
+
+# Check if the directory exists
+if [ ! -d "$directory_to_zip" ]; then
+    echo "Error: Directory does not exist."
+    exit 1
+fi
+
+# Check if the zip file already exists
+if [ -f "$zip_filename.zip" ]; then
+    echo "Error: Zip file '$zip_filename.zip' already exists. Please choose a different name."
+    exit 1
+fi
+
+# Create a zip archive of the directory and its contents
+zip -r "$zip_filename.zip" "$directory_to_zip"
+
+# Check if zip was successful
+if [ $? -eq 0 ]; then
+    echo "Successfully zipped '$directory_to_zip' to '$zip_filename.zip'."
+else
+    echo "Error: Failed to create the zip archive."
+fi

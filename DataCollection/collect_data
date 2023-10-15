@@ -1,17 +1,94 @@
 #!/bin/bash
 
-# Bash attempt at data collection
+# Data collection
 
-# d=$(date +%Y-%m-%d)
+d=$(date +%Y-%m-%d)
 # This will go through yesterday's files
-d=$(date -d "1 day ago" +%Y-%m-%d)
+# d=$(date -d "1 day ago" +%Y-%m-%d)
+
+total_collection_filepath=$(echo "/Data/cumulative")
+total_collection_attackers_filepath=$(echo "/Data/cumulative_with_attackers")
 
 for filename in /MITM/mitm_logs/$d/*.log; do
     echo $filename
 
+    # Get time MITM started
+    start_time=$(cat $filename | grep "SSH man-in-the-middle server for" | cut -d " " -f 2 | cut -d "." -f 1)
+    # If you don't want decimal points:
+    # start_time=$(cat $filename | grep "SSH man-in-the-middle server for" | cut -d " " -f 2 | cut -d "." -f 1)
+
+    # LXC Stream open and stream close (use as proxy for start and end of attacker session, other values like )
+    LXC_stream_start_time=$(cat $filename | grep "\[LXC Streams] New Stream" | cut -d " " -f 2 | cut -d "." -f 1)
+    LXC_stream_end_time=$(cat $filename | grep "\[LXC Streams] Removed Stream" | cut -d " " -f 2 | cut -d "." -f 1)
+    # time_in_system=$(($LXC_stream_end - $LXC_stream_start))
+
+
+    LXC_stream_start=$(cat $filename | grep "\[LXC Streams] New Stream" | cut -d " " -f 1,2 | cut -d "." -f 1)
+    LXC_stream_end=$(cat $filename | grep "\[LXC Streams] Removed Stream" | cut -d " " -f 1,2 | cut -d "." -f 1)
+
+    seconds1=$(date --date "$LXC_stream_start" +%s)
+    seconds2=$(date --date "$LXC_stream_end" +%s)
+    time_in_system=$((seconds2 - seconds1))
+
+
+    # Get level of system
+    level=$(echo $filename | cut -d "-" -f 5 | cut -d ":" -f 2 | cut -d "." -f 1)
+    #ORIGINAL: level=$(echo $filepath | cut -d "-" -f 3 | cut -d ":" -f 2 | cut -d "." -f 1)
+
     # First thing after line reader
-    cat $filename | grep "line from reader: " | cut -d " " -f 9
+    # cat $filename | grep "line from reader: " | cut -d " " -f 9
 
-    # Might be interesting to count number of sudos
+    # Count number of sudos
+    sudo_count=$(grep -o 'sudo' "$filename" | wc -l)
 
+
+    # Count number of commands (ignoring empty lines)
+    command_count=$(cat $filename | grep "line from reader: " | cut -d " " -f 9 | grep "\S" | wc -l)
+
+
+    # Here do we want to do # of wget and curl stuff to see how much malware commands
+    # We might need to redo this, replacing "sudo" and taking only the first one before grepping for the specific command
+    wget_count=$(cat $filename | grep "line from reader: " | grep "wget" | wc -l)
+    curl_count=$(cat $filename | grep "line from reader: " | grep "curl" | wc -l)
+    malware_count=$((wget_count + curl_count))
+
+    # Number of banners seen (depends on poisoned commands)
+    # TODO
+
+
+
+    # Number of other commands?? maybe categorize, will have to try and see
+
+
+
+
+    echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count" >> $total_collection_filepath
+
+    if [[ $time_in_system -ne 0 ]]
+    then
+        echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count $malware_count" >> $total_collection_attackers_filepath
+    fi
 done
+
+
+
+
+
+# Random commands that we might want to keep a hold of:
+
+# Get time attacker connected (last one if multiple connections made)
+# attacker_connection_time=$(cat $filename | grep "\[Debug] \[Connection] Attacker connected:" | tail -1 | cut -d " " -f 2)
+
+# Get time attacker broke auto access
+# attacker_enter_system=$(cat $filename | grep "\[Debug] \[LXC-Auth] Attacker authenticated and is inside container" | cut -d " " -f 2)
+
+if [ ! -d "/Data/src" ]
+then
+    mkdir -p "/Data/src"
+done
+# We can collect the data and zip it, then prepare the files for removal.
+/1G-Ray-of-Light/DataCollection/zipfiles /MITM/mitm_logs/$d "/Data/src/$d" #dont inclide the .zip part
+
+# i'll just mass the full data here, we grep all the data idc (we shouldn't need to)
+
+
