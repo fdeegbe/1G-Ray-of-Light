@@ -31,8 +31,8 @@ touch /Data/cumulative_with_attackers
 echo "Start_Time End_Time Time_In_System Level Sudo_Count Command_Count Malware_Count" | sudo tee Data/cumulative
 echo "Start_Time End_Time Time_In_System Level Sudo_Count Command_Count Malware_Count" | sudo tee /Data/cumulative_with_attackers
 
-# Set up crontab in root crontab for the permissions.
-echo -e "*/10 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle\n*/5 * * * * /1G-Ray-of-Light/DataCollection/collect_data\n@reboot sh /1G-Ray-of-Light/Setup/firewall_rules.sh\n" | sudo crontab -
+# Set up crontab in root crontab.
+echo -e "*/10 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle\n*/5 * * * * /1G-Ray-of-Light/DataCollection/collect_data\n" | sudo crontab -
 
 
 
