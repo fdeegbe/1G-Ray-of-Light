@@ -1,0 +1,23 @@
+*************************************************************************
+You are accessing a U.S. Government (USG) Information System (IS) that
+is provided for USG-authorized use only. By using this(which includes 
+any device attached to this IS), you have consented to these conditions: 
+                                           
+- Any communication or data transiting or stored on this system may be 
+    disclosed or used for any lawful government purpose.                       
+- Unauthorized or improper use of this system may result in disciplinary 
+    action, as well as civil and criminal penalties.
+- You have been notified that the use of this system constitutes consent 
+    to monitoring and recording.                                               
+- Your IP address, login information, and data transactions will be logged 
+    and monitored continuously for cybersecurity and investigative purposes.   
+
+Violation or unauthorized use of this system violates federal law under 
+United States Code (U.S.C.), Title 18, Section 1030, which provides for 
+fines up to $50,000 and imprisonment up to 20 years for unauthorized access 
+or for exceeding authorized access to government computers.                                             
+                                                                         
+You have already acknowledged your understanding with these rules, this 
+is simply a warning because a transfer of data was detected. 
+
+*************************************************************************
