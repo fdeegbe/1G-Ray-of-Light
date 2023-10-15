@@ -1,3 +1,9 @@
 #!/bin/bash
-echo "Sample poisoned bunzip2.sh"
+
+./warning_compression.sh
+read -p "Please acknowledge the warning above. (Y):" response
+if [ "$response" == "Y" || "$response" == "y" || "$response" == "Yes" || "$response" == "YES" || "$response" == "yes"]
+then
+  /usr/bin/real-bunzip2 "$@"
+fi
 

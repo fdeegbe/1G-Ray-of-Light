@@ -1,3 +1,9 @@
 #!/bin/bash
-echo "Sample poisoned bzip2"
+
+./warning_compression.sh
+read -p "Please acknowledge the warning above. (Y):" response
+if [ "$response" == "Y" || "$response" == "y" || "$response" == "Yes" || "$response" == "YES" || "$response" == "yes"]
+then
+  /usr/bin/real-bzip2 "$@"
+fi
 
