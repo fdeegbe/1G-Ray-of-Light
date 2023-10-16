@@ -101,8 +101,7 @@ sudo mkdir /MITM/mitm_logs
 sudo mkdir /MITM/mitm_logs/$d
 
 # Start the MITM server and make associated log file with time and name in the date directory.
-# sudo forever -l /MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log start /MITM/mitm.js -n $container_name -i $container_ip -p $mitm_port --auto-access --auto-access-fixed 3 --debug
-sudo forever -l /MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log start /MITM/mitm.js -n $container_name -i $container_ip -p $mitm_port --auto-access --auto-access-fixed 3
+sudo forever -l /MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log start /MITM/mitm.js -n $container_name -i $container_ip -p $mitm_port --auto-access --auto-access-fixed 3 --debug
 
 # Insert necessary nat rules.
 sudo ip addr add $assigned_ip/16 brd + dev eth1

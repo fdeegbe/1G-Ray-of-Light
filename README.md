@@ -15,7 +15,7 @@ github_pat_11AU7BHII0wxOAuJgAFgk8_4GJIuJfpNYpGnuXyXHob75dMgAvgNYC04yZvCOE9yCt2VZ
 
 ## Usage
 
-Simply `git glone \[link\]` this repository into the VM where the containers will be spawned from. Then move the repository to the root (/) directory (the cron calls will use full paths so this is important). You should see updating log files in the /MITM/mitm_logs file.
+Simply `git clone [link]` this repository into the VM where the containers will be spawned from. Then move the repository to the root (/) directory (the cron calls will use full paths so this is important). You should see updating log files in the /MITM/mitm_logs file.
 
 ### Setup/setup
 This script will run and set everything up. This script will start the firewall rules, install forever, clone the MITM server into the root directory, set up cron jobs, and make sure necessary files have correct permissions.
