@@ -41,6 +41,9 @@ for filename in /MITM/mitm_logs/$d/*.log; do
     # Count number of sudos
     sudo_count=$(grep -o 'sudo' "$filename" | wc -l)
 
+    # Need to integrate this
+    su_count=$(cat $filename | grep "line from reader: " | grep "su" | wc -l)
+
 
     # Count number of commands (ignoring empty lines)
     command_count=$(cat $filename | grep "line from reader: " | cut -d " " -f 9 | grep "\S" | wc -l)
@@ -48,25 +51,53 @@ for filename in /MITM/mitm_logs/$d/*.log; do
 
     # Here do we want to do # of wget and curl stuff to see how much malware commands
     # We might need to redo this, replacing "sudo" and taking only the first one before grepping for the specific command
+    # Downloading/copying files
     wget_count=$(cat $filename | grep "line from reader: " | grep "wget" | wc -l)
     curl_count=$(cat $filename | grep "line from reader: " | grep "curl" | wc -l)
-    malware_count=$((wget_count + curl_count))
+    scp_count=$(cat $filename | grep "line from reader: " | grep "scp" | wc -l)
+    rsync_count=$(cat $filename | grep "line from reader: " | grep "rsync" | wc -l)
+    git_count=$(cat $filename | grep "line from reader: " | grep "git" | wc -l)
+    downloading_count=$((wget_count + curl_count + scp_count + rsync_count + git_count))
+
+    # Compression
+    # NEED SOME CHANGES FOR OVERLAP STUFF
+    tar_count=$(cat $filename | grep "line from reader: " | grep "tar" | wc -l)
+    gzip_count=$(cat $filename | grep "line from reader: " | grep "gzip" | wc -l)
+    gunzip_count=$(cat $filename | grep "line from reader: " | grep "gunzip" | wc -l)
+    bzip2_count=$(cat $filename | grep "line from reader: " | grep "bzip2" | wc -l)
+    bunzip2_count=$(cat $filename | grep "line from reader: " | grep "bunzip2" | wc -l)
+    zip_count=$(cat $filename | grep "line from reader: " | grep "zip" | wc -l)
+    unzip_count=$(cat $filename | grep "line from reader: " | grep "un" | wc -l)
+    rar_count=$(cat $filename | grep "line from reader: " | grep "rar" | wc -l)
+    unrar_count=$(cat $filename | grep "line from reader: " | grep "unrar" | wc -l)
+    compression_count=$((tar_count + gzip_count + gunzip_count + bzip2_count + bunzip2_count + zip_count + unzip_count + rar_count + unrar_count))
+
+    # Reading/writing files
+    vim_count=$(cat $filename | grep "line from reader: " | grep "vim" | wc -l)
+    nano_count=$(cat $filename | grep "line from reader: " | grep "nano" | wc -l)
+    emacs_count=$(cat $filename | grep "line from reader: " | grep "emacs" | wc -l)
+    more_count=$(cat $filename | grep "line from reader: " | grep "more" | wc -l)
+    less_count=$(cat $filename | grep "line from reader: " | grep "less" | wc -l)
+    rw_count=$((vim_count + nano_count + emacs_count + more_count + less_count))
+
+    # User settings
+    adduser_count=$(cat $filename | grep "line from reader: " | grep "adduser" | wc -l)
+    passwd_count=$(cat $filename | grep "line from reader: " | grep "passwd" | wc -l)
+    chmod_count=$(cat $filename | grep "line from reader: " | grep "chmod" | wc -l)
+    deluser_count=$(cat $filename | grep "line from reader: " | grep "deluser" | wc -l)
+    groupadd_count=$(cat $filename | grep "line from reader: " | grep "groupadd" | wc -l)
+    groupdel_count=$(cat $filename | grep "line from reader: " | grep "groupdel" | wc -l)
+    groupmod_count=$(cat $filename | grep "line from reader: " | grep "groupmod" | wc -l)
+    usersettings_count=$((adduser_count + passwd_count + chmod_count + deluser_count + groupadd_count + groupdel_count + groupmod_count))
 
     # Number of banners seen (depends on poisoned commands)
-    # TODO
+    banner_count=$((sudo_count + downloading_count + compression_count + rw_count + usersettings_count + 1)) 
 
-
-
-    # Number of other commands?? maybe categorize, will have to try and see
-
-
-
-
-    echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count" >> $total_collection_filepath
+    echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count $downloading_count $compression_count $rw_count $usersettings_count $banner_count" >> $total_collection_filepath
 
     if [[ $time_in_system -ne 0 ]]
     then
-        echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count $malware_count" >> $total_collection_attackers_filepath
+        echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count $downloading_count $compression_count $rw_count $usersettings_count $banner_count" >> $total_collection_attackers_filepath
     fi
 done
 
