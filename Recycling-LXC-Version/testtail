@@ -13,7 +13,7 @@ process_new_line() {
         # iptables --insert INPUT --source $ip_addr --destination $container_ip --jump DROP
 
         # Add an iptables rule to not allow all other connections to (where?)
-        echo $REPLY | cut -d ";" -f 2 >> /Testfile
+        echo $REPLY | cut -d ";" -f 2 | tee /Testfile
 
         read
     done
