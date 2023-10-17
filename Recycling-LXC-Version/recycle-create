@@ -14,6 +14,7 @@ mitm_port=$3
 container_name=$4
 
 sudo lxc-create -n $container_name -t download -- -d ubuntu -r focal -a amd64
+sudo cp 
 sudo lxc-start -n $container_name
 
 sleep 5

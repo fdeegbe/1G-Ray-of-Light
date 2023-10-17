@@ -93,8 +93,8 @@ electives_list = [
 
 
 
-if not os.path.exists("fake_transcripts"):
-    os.makedirs("fake_transcripts")
+if not os.path.exists("student_transcripts"):
+    os.makedirs("student_transcripts")
 
 # Function to generate random data for the files
 
@@ -106,7 +106,7 @@ def generate_random_data():
     student_email = ''.join(random.choices(string.ascii_lowercase, k=8))
     student_email_masked = student_email[:random.randint(1, len(
 student_email)//2)] + '*'*random.randint(3, 6) + "@umd.edu"
-    student_major = random.choice(list(common_majors.keys()))  # Choose from common majors
+    student_major = random.choice(list(common_majors.keys()))
     student_status = random.choice(
         ["Freshman", "Sophomore", "Junior", "Senior"])
     student_degree = random.choice(
@@ -143,8 +143,7 @@ Major: {student_major}
 """
 
 
-# Generate and write 100 fake files
 for i in range(NUM_FILES):
-    filename = f"fake_transcripts/transcript_{i+1}.txt"
+    filename = f"student_transcripts/transcript_{random.randint(1, 100)}{i+1}{random.randint(1, 100)}.txt"
     with open(filename, "w") as file:
         file.write(generate_random_data())
