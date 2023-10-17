@@ -16,9 +16,8 @@ container_name=$4
 sudo lxc-create -n $container_name -t download -- -d ubuntu -r focal -a amd64
 sudo cp 
 sudo lxc-start -n $container_name
-
 sleep 5
-
+sudo lxc-attach -n $container_name -- cat 
 # pull ip address of container
 container_ip=$(sudo lxc-ls -f | grep "$container_name " | tr -s " " | cut -d " " -f 5)
 
