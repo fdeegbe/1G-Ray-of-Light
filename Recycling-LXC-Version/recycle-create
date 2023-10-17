@@ -43,49 +43,15 @@ then
 elif [ $container_variant == 2 ]
 then
     # level 2
-    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf \"Welcome to our secure system. Please adhere to all guidelines and use responsibly\" > /etc/update-motd.d/00-header'
+    sudo cp /1G-Ray-of-Light/Variance/level2/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
 elif [ $container_variant == 3 ]
 then
     # level 3
-    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf \"Welcome\" > /etc/update-motd.d/00-header && \
-    sudo echo printf \"By accessing this information system, you agree to comply with all applicable use policies and legal provisions.\n                                
-                        Please be aware: \n                                                          
-                        - This system is monitored every 24 hours to ensure proper functioning and to verify secure usage. \n                                                
-                        - Your IP address and login times will be automatically recorded. \n          
-                                                                           
-                        In accordance with Maryland Criminal Law 7-302, unauthorized access, use, alteration, or damage to this \n
-                        system may result in civil and/or criminal penalties with fines up to $10,000.\n    
-                                                                                                                     
-                        We value privacy and data protection. Use this system responsibly and always respect all applicable data protection laws. \n                            
-                                                                              
-                        If you do not agree to these terms, please LOG OFF IMMEDIATELY. \n\" >> /etc/update-motd.d/00-header'
+    sudo cp /1G-Ray-of-Light/Variance/level3/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
 elif [ $container_variant == 4 ]
 then
     # level 4
-    sudo lxc-attach -n $container_name -- bash -c 'sudo echo printf \"You are accessing a U.S. Government (USG) Information System (IS) that is  \n
-                                                    provided for USG-authorized use only. By using this IS (which includes any \n
-                                                    device attached to this IS), you consent to the following conditions: \n    
-                                                                             
-                                                \t - The United States Government may monitor, record, and audit your system usage, including \n
-                                                usage of personal devices and email systems for official duties or to conduct business operations. \n
-                                                Therefore, you have no reasonable expectation of privacy regarding any communication or data transiting \n
-                                                or stored on this system. At any time, the government may for any lawful government purpose, monitor, intercept, \n
-                                                search and seize any communication or data transiting or stored on this system. \n
-
-                                                \t - Any communication or data transiting or stored on this system may be disclosed or used for any \n
-                                                lawful government purpose. \n                    
-                                                \t - Unauthorized or improper use of this system may result in disciplinary action, as well as \n
-                                                civil and criminal penalties. \n
-                                                You have been notified that the use of this system constitutes consent to monitoring and recording. \n                                              
-                                                \t - Your IP address, login information, and data transactions will be logged and monitored \n
-                                                continuously for cybersecurity and investigative purposes. \n
-
-                                                Violation or unauthorized use of this system violates federal law under United States Code (U.S.C.), \n
-                                                Title 18, Section 1030, which provides for fines up to $50,000 and imprisonment up to 20 years for \n
-                                                unauthorized access or for exceeding authorized access to government computers. \n                                      
-                                                                         
-                                                By proceeding, you acknowledge your understanding and compliance with these warnings and consent to \n
-                                                all of the above provisions.\" > /etc/update-motd.d/00-header'
+    sudo cp /1G-Ray-of-Light/Variance/level4/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
 fi
 
 # Command needed for MITM server routing.
