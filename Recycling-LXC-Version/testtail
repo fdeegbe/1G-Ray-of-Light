@@ -13,13 +13,14 @@ process_new_line() {
         # iptables --insert INPUT --source $ip_addr --destination $container_ip --jump DROP
 
         # Add an iptables rule to not allow all other connections to (where?)
-        echo $REPLY | cut -d ";" -f 2 | tee /Testfile
+        # echo $REPLY | cut -d ";" -f 2 | tee /Testfile
+        echo $REPLY | sudo tee /testfile_out
 
         read
     done
 }
 
 # tail -f /MITM/logs/logins/$container_name
-touch /MITM/testfile
-touch /Testfile
-tail -f /MITM/testfile
+touch /testfile_in
+touch /testfile_out
+tail -f /testfile_in | process_new_line
