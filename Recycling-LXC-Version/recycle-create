@@ -34,6 +34,7 @@ echo "Y" | sudo lxc-attach -n $container_name -- sudo apt install openssh-server
 if [ $container_variant == 1 ]
 then
     # level 1
+    echo ""
 
 elif [ $container_variant == 2 ]
 then
