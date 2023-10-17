@@ -21,4 +21,4 @@ process_new_line() {
 
 touch /LoginIPs
 # tail -f /MITM/logs/logins/$container_name | process_new_line
-tail -f /MITM/logs/logins/container1 | process_new_line
+tail -f /MITM/logs/logins/container1.log | process_new_line
