@@ -11,7 +11,7 @@ else
     sudo lxc-attach -n $container_name -- mkdir -p /var/log/.downloads
     sudo lxc-attach -n $container_name -- chmod 777 /var/log/.downloads
 
-    sudo cp -r "level$variance_level" "/var/lib/lxc/$container_name/rootfs/usr/.warning_messages"
+    sudo cp -r "/1G-Ray-of-Light/Poisoning/level$variance_level" "/var/lib/lxc/$container_name/rootfs/usr/.warning_messages"
     
     # Moves the real commands into their paths named real-command
     sudo lxc-attach -n $container_name -- mv /usr/bin/wget /usr/bin/real-wget
@@ -44,7 +44,6 @@ else
     sudo lxc-attach -n $container_name -- mv /usr/sbin/adduser /usr/sbin/real-adduser
     sudo lxc-attach -n $container_name -- mv /usr/sbin/deluser /usr/sbin/real-deluser
     sudo lxc-attach -n $container_name -- mv /usr/bin/passwd /usr/bin/real-passwd
-    sudo lxc-attach -n $container_name -- mv /usr/bin/chmod /usr/bin/real-chmod
     sudo lxc-attach -n $container_name -- mv /usr/sbin/groupadd /usr/sbin/real-groupadd
     sudo lxc-attach -n $container_name -- mv /usr/sbin/groupmod /usr/sbin/real-groupmod
     sudo lxc-attach -n $container_name -- mv /usr/sbin/groupdel /usr/sbin/real-groupdel
@@ -122,8 +121,6 @@ else
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/groupdel"
     sudo cp poisoned-groupmod.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/groupmod
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/groupmod"
-    sudo cp poisoned-chmod.sh /var/lib/lxc/$container_name/rootfs/usr/bin/chmod
-    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/chmod"
     sudo cp poisoned-passwd.sh /var/lib/lxc/$container_name/rootfs/usr/bin/passwd
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/passwd"
 

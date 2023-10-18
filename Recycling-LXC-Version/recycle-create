@@ -32,6 +32,7 @@ echo "Y" | sudo lxc-attach -n $container_name -- sudo apt install openssh-server
 # commands are here as placeholders for creating the systems to prove the randomness
 # of our systems.
 # TODO: #########################################################################
+sudo /1G-Ray-of-Light/Poisoning/poison_command.sh $container_name $container_variant
 if [ $container_variant == 1 ]
 then
     # level 1
