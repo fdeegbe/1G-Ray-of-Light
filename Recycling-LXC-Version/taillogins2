@@ -2,7 +2,6 @@
 
 process_new_line() {
     # local var=''
-    read
     while IFS= read -r line
     do
         attacker_ip=$(echo "$line" | cut -d ";" -f 2)
