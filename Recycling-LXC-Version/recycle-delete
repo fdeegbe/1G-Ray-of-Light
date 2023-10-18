@@ -5,7 +5,12 @@
 # nat routing rules.
 
 
-# TODO: grab container data
+# Stop all iptables rules that block to containers:
+iptables-save | grep -v "Drop other attackers container1" | iptables-restore
+iptables-save | grep -v "Drop other attackers container2" | iptables-restore
+iptables-save | grep -v "Drop other attackers container3" | iptables-restore
+iptables-save | grep -v "Drop other attackers container4" | iptables-restore
+
 
 # Stop all forever (MITM) processes.
 sudo forever stopall
