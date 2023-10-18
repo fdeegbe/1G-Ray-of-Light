@@ -39,15 +39,15 @@ then
 elif [ $container_variant == 2 ]
 then
     # level 2
-    sudo cp /1G-Ray-of-Light/Variance/level2/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
+    sudo cp /1G-Ray-of-Light/Poisoning/level2/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
 elif [ $container_variant == 3 ]
 then
     # level 3
-    sudo cp /1G-Ray-of-Light/Variance/level3/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
+    sudo cp /1G-Ray-of-Light/Poisoning/level3/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
 elif [ $container_variant == 4 ]
 then
     # level 4
-    sudo cp /1G-Ray-of-Light/Variance/level4/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
+    sudo cp /1G-Ray-of-Light/Poisoning/level4/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
 fi
 
 # Command needed for MITM server routing.
