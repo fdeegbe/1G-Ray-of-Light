@@ -38,7 +38,6 @@ else
     sudo lxc-attach -n $container_name -- mv /usr/bin/more /usr/bin/real-more
     sudo lxc-attach -n $container_name -- mv /usr/bin/less /usr/bin/real-less
     
-    sudo lxc-attach -n $container_name -- mv /usr/bin/sudo /usr/bin/real-sudo
     sudo lxc-attach -n $container_name -- mv /usr/bin/su /usr/bin/real-su
 
     sudo lxc-attach -n $container_name -- mv /usr/sbin/adduser /usr/sbin/real-adduser
@@ -71,7 +70,6 @@ else
     sudo lxc-attach -n $container_name -- bash -c "touch /usr/bin/nano && chmod 755 /usr/bin/nano"
     sudo lxc-attach -n $container_name -- bash -c "touch /usr/bin/emacs && chmod 755 /usr/bin/emacs"
 
-    sudo lxc-attach -n $container_name -- bash -c "touch /usr/bin/sudo && chmod 755 /usr/bin/sudo"
 
     #Copy the fake commands into where the real commands used to be
     sudo cp /1G-Ray-of-Light/Poisoning/poisoned-wget.sh /var/lib/lxc/$container_name/rootfs/usr/bin/wget
@@ -98,8 +96,6 @@ else
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/nano"
     sudo cp /1G-Ray-of-Light/Poisoning/poisoned-emacs.sh /var/lib/lxc/$container_name/rootfs/usr/bin/emacs
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/emacs"
-    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-sudo.sh /var/lib/lxc/$container_name/rootfs/usr/bin/sudo
-    sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/sudo"
     sudo cp /1G-Ray-of-Light/Poisoning/poisoned-su.sh /var/lib/lxc/$container_name/rootfs/usr/bin/su
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/su"
     sudo cp /1G-Ray-of-Light/Poisoning/poisoned-more.sh /var/lib/lxc/$container_name/rootfs/usr/bin/more
