@@ -14,4 +14,4 @@ process_new_line() {
 }
 
 touch /LoginIPs2
-tail -f /MITM/logs/logins/container2.log | process_new_line
+tail -n 0 -f /MITM/logs/logins/container2.log | process_new_line

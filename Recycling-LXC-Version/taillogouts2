@@ -14,4 +14,4 @@ process_new_line() {
 }
 
 touch /Logouts
-tail -f /MITM/logs/logouts/container2.log | process_new_line
+tail -n 0 -f /MITM/logs/logouts/container2.log | process_new_line
