@@ -8,7 +8,7 @@ process_new_line() {
 
         attacker_ip=$(echo $REPLY | cut -d ";" -f 2)
         # Need to add iptables rule
-        sudo iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5002 --jump DROP -m comment --comment "Drop other attackers container2"
+        sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5002 --jump DROP -m comment --comment "Drop other attackers container2"
 
         read
     done
