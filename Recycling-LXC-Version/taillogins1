@@ -14,5 +14,4 @@ process_new_line() {
     done
 }
 
-touch /LoginIPs
 tail -n 0 -f /MITM/logs/logins/container1.log | process_new_line

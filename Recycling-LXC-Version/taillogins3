@@ -14,5 +14,4 @@ process_new_line() {
     done
 }
 
-touch /LoginIPs3
 tail -n 0 -f /MITM/logs/logins/container3.log | process_new_line
