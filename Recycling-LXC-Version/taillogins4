@@ -1,5 +1,4 @@
 #!/bin/bash
-#container_name=$1
 
 process_new_line() {
     # local var=''
@@ -13,12 +12,11 @@ process_new_line() {
         # iptables --insert INPUT --source $ip_addr --destination $container_ip --jump DROP
 
         # Add an iptables rule to not allow all other connections to (where?)
-        echo $REPLY | cut -d ";" -f 2 | sudo tee /LoginIPs
+        echo $REPLY | cut -d ";" -f 2 | sudo tee /LoginIPs4
 
         read
     done
 }
 
-touch /LoginIPs
-# tail -f /MITM/logs/logins/$container_name | process_new_line
-tail -f /MITM/logs/logins/container1.log | process_new_line
+touch /LoginIPs4
+tail -f /MITM/logs/logins/container4.log | process_new_line
