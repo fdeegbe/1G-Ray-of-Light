@@ -8,10 +8,12 @@ process_new_line() {
 
         attacker_ip=$(echo $REPLY | cut -d ";" -f 2)
         # Need to add iptables rule
+        echo attacker_ip | sudo tee /LoginIPs
         sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5001 --jump DROP -m comment --comment "Drop other attackers container1"
 
         read
     done
 }
 
+touch /LoginIPs
 tail -n 0 -f /MITM/logs/logins/container1.log | process_new_line
