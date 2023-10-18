@@ -9,6 +9,12 @@ the password is
 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
 ```
 
+## Container-info
+128.8.238.25 5001 container1
+128.8.238.39 5002 container2
+128.8.238.58 5003 container3
+128.8.238.115 5004 container4
+
 ## Bash-Demos
 ### Contains the demos for our creation and destruction scripts
 

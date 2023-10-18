@@ -2,7 +2,7 @@ import os
 import random
 import string
 from datetime import date, timedelta
-NUM_FILES = 40
+NUM_FILES = 52
 
 
 
@@ -93,8 +93,8 @@ electives_list = [
 
 
 
-if not os.path.exists("student_transcripts"):
-    os.makedirs("student_transcripts")
+if not os.path.exists("/home/student_transcripts"):
+    os.makedirs("/home/student_transcripts")
 
 # Function to generate random data for the files
 
@@ -144,6 +144,6 @@ Major: {student_major}
 
 
 for i in range(NUM_FILES):
-    filename = f"student_transcripts/transcript_{random.randint(1, 100)}{i+1}{random.randint(1, 100)}.txt"
+    filename = f"/home/student_transcripts/transcript_{random.randint(1, 100)}{i+1}{random.randint(1, 100)}.txt"
     with open(filename, "w") as file:
         file.write(generate_random_data())
