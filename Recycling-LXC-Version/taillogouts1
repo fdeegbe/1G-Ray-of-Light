@@ -8,7 +8,7 @@ process_new_line() {
 
         echo $REPLY | cut -d ";" -f 2 | sudo tee /Logouts
         # Need to remove iptables rule
-        sudo iptables --delete INPUT --protocol tcp ! --source $attacker_ip --dport 5001 --jump DROP
+        sudo iptables --delete INPUT --protocol tcp ! --source $attacker_ip --dport 5001 --jump DROP -m comment --comment "Drop other attackers container1"
 
         read
     done
