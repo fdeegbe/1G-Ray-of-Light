@@ -6,7 +6,7 @@ process_new_line() {
     while true
     do
 
-        echo $REPLY | cut -d ";" -f 2 | sudo tee /LoginIPs3
+        attacker_ip=$(echo $REPLY | cut -d ";" -f 2)
         # Need to add iptables rule
         sudo iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5003 --jump DROP -m comment --comment "Drop other attackers container3"
 
