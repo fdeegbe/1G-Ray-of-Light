@@ -74,54 +74,50 @@ else
     sudo lxc-attach -n $container_name -- bash -c "touch /usr/bin/sudo && chmod 755 /usr/bin/sudo"
 
     #Copy the fake commands into where the real commands used to be
-    sudo cp poisoned-wget.sh /var/lib/lxc/$container_name/rootfs/usr/bin/wget
-    sudo cp poisoned-curl.sh /var/lib/lxc/$container_name/rootfs/usr/bin/curl
-    sudo cp poisoned-scp.sh /var/lib/lxc/$container_name/rootfs/usr/bin/scp
-    sudo cp poisoned-rsync.sh /var/lib/lxc/$container_name/rootfs/usr/bin/rsync
-    sudo cp poisoned-ftp.sh /var/lib/lxc/$container_name/rootfs/usr/bin/ftp
-    sudo cp poisoned-sftp.sh /var/lib/lxc/$container_name/rootfs/usr/bin/sftp
-    sudo cp poisoned-git.sh /var/lib/lxc/$container_name/rootfs/usr/bin/git
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-wget.sh /var/lib/lxc/$container_name/rootfs/usr/bin/wget
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-curl.sh /var/lib/lxc/$container_name/rootfs/usr/bin/curl
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-scp.sh /var/lib/lxc/$container_name/rootfs/usr/bin/scp
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-rsync.sh /var/lib/lxc/$container_name/rootfs/usr/bin/rsync
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-ftp.sh /var/lib/lxc/$container_name/rootfs/usr/bin/ftp
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-sftp.sh /var/lib/lxc/$container_name/rootfs/usr/bin/sftp
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-git.sh /var/lib/lxc/$container_name/rootfs/usr/bin/git
 
-    sudo cp poisoned-tar.sh /var/lib/lxc/$container_name/rootfs/usr/bin/tar
-    sudo cp poisoned-gzip.sh /var/lib/lxc/$container_name/rootfs/usr/bin/gzip
-    sudo cp poisoned-gunzip.sh /var/lib/lxc/$container_name/rootfs/usr/bin/gunzip
-    sudo cp poisoned-bzip2.sh /var/lib/lxc/$container_name/rootfs/usr/bin/bzip2
-    sudo cp poisoned-bunzip2.sh /var/lib/lxc/$container_name/rootfs/usr/bin/bunzip2
-    sudo cp poisoned-zip.sh /var/lib/lxc/$container_name/rootfs/usr/bin/zip
-    sudo cp poisoned-unzip.sh /var/lib/lxc/$container_name/rootfs/usr/bin/unzip
-    sudo cp poisoned-rar.sh /var/lib/lxc/$container_name/rootfs/usr/bin/rar
-    sudo cp poisoned-unrar.sh /var/lib/lxc/$container_name/rootfs/usr/bin/unrar
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-tar.sh /var/lib/lxc/$container_name/rootfs/usr/bin/tar
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-gzip.sh /var/lib/lxc/$container_name/rootfs/usr/bin/gzip
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-gunzip.sh /var/lib/lxc/$container_name/rootfs/usr/bin/gunzip
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-bzip2.sh /var/lib/lxc/$container_name/rootfs/usr/bin/bzip2
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-bunzip2.sh /var/lib/lxc/$container_name/rootfs/usr/bin/bunzip2
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-zip.sh /var/lib/lxc/$container_name/rootfs/usr/bin/zip
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-unzip.sh /var/lib/lxc/$container_name/rootfs/usr/bin/unzip
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-rar.sh /var/lib/lxc/$container_name/rootfs/usr/bin/rar
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-unrar.sh /var/lib/lxc/$container_name/rootfs/usr/bin/unrar
 
-    echo "ytes"
-    sudo cp poisoned-vim.sh /var/lib/lxc/$container_name/rootfs/usr/bin/vim
-    echo "Ytest"
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-vim.sh /var/lib/lxc/$container_name/rootfs/usr/bin/vim
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/vim"
-    echo "test"
-    sudo cp poisoned-nano.sh /var/lib/lxc/$container_name/rootfs/usr/bin/nano
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-nano.sh /var/lib/lxc/$container_name/rootfs/usr/bin/nano
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/nano"
-    sudo cp poisoned-emacs.sh /var/lib/lxc/$container_name/rootfs/usr/bin/emacs
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-emacs.sh /var/lib/lxc/$container_name/rootfs/usr/bin/emacs
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/emacs"
-    sudo cp poisoned-sudo.sh /var/lib/lxc/$container_name/rootfs/usr/bin/sudo
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-sudo.sh /var/lib/lxc/$container_name/rootfs/usr/bin/sudo
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/sudo"
-    sudo cp poisoned-su.sh /var/lib/lxc/$container_name/rootfs/usr/bin/su
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-su.sh /var/lib/lxc/$container_name/rootfs/usr/bin/su
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/su"
-    sudo cp poisoned-more.sh /var/lib/lxc/$container_name/rootfs/usr/bin/more
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-more.sh /var/lib/lxc/$container_name/rootfs/usr/bin/more
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/more"
-    sudo cp poisoned-less.sh /var/lib/lxc/$container_name/rootfs/usr/bin/less
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-less.sh /var/lib/lxc/$container_name/rootfs/usr/bin/less
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/less"
 
-    echo "Testing"
-    sudo cp poisoned-adduser.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/adduser
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-adduser.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/adduser
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/adduser"
-    sudo cp poisoned-deluser.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/deluser
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-deluser.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/deluser
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/deluser"
-    sudo cp poisoned-groupadd.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/groupadd
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-groupadd.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/groupadd
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/groupadd"
-    sudo cp poisoned-groupdel.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/groupdel
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-groupdel.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/groupdel
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/groupdel"
-    sudo cp poisoned-groupmod.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/groupmod
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-groupmod.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/groupmod
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/groupmod"
-    sudo cp poisoned-passwd.sh /var/lib/lxc/$container_name/rootfs/usr/bin/passwd
+    sudo cp /1G-Ray-of-Light/Poisoning/poisoned-passwd.sh /var/lib/lxc/$container_name/rootfs/usr/bin/passwd
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/passwd"
 
     echo "Commands have been poisoned"
