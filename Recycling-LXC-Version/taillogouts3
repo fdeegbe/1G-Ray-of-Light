@@ -1,0 +1,17 @@
+#!/bin/bash
+
+process_new_line() {
+    # local var=''
+    read
+    while true
+    do
+
+        echo $REPLY | cut -d ";" -f 2 | sudo tee /Logouts
+        # Need to remove iptables rule
+
+        read
+    done
+}
+
+touch /Logouts
+tail -f /MITM/logs/logouts/container3.log | process_new_line

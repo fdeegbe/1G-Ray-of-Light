@@ -5,14 +5,9 @@ process_new_line() {
     read
     while true
     do
-        # ip_addr=$(echo $REPLY | cut -d ";" -f 2)
-        # container_ip=$(sudo lxc-ls -f | grep "$container_name " | tr -s " " | cut -d " " -f 5)
 
-        # Add an iptables rule to allow the ip address to (where?)
-        # iptables --insert INPUT --source $ip_addr --destination $container_ip --jump DROP
-
-        # Add an iptables rule to not allow all other connections to (where?)
         echo $REPLY | cut -d ";" -f 2 | sudo tee /LoginIPs4
+        # Need to add iptables rule
 
         read
     done
