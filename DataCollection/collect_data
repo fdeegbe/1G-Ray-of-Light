@@ -2,9 +2,9 @@
 
 # Data collection
 
-d=$(date +%Y-%m-%d)
+# d=$(date +%Y-%m-%d)
 # This will go through yesterday's files
-# d=$(date -d "1 day ago" +%Y-%m-%d)
+d=$(date -d "1 day ago" +%Y-%m-%d)
 
 total_collection_filepath=$(echo "/Data/cumulative")
 total_collection_attackers_filepath=$(echo "/Data/cumulative_with_attackers")
