@@ -23,6 +23,18 @@ chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/recycle
 # Execute permissions for data collection script.
 chmod +x /1G-Ray-of-Light/DataCollection/collect_data
 
+# Permissions for following
+chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins1
+chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins2
+chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins3
+chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins4
+chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts1
+chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts2
+chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts3
+chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts4
+
+
+
 
 # Setup for data collection.
 mkdir /Data
