@@ -6,11 +6,13 @@ then
     exit 1
 else
     container_name=$1
+    variance_level=$2
     # make the directory and give it permissions
     sudo lxc-attach -n $container_name -- mkdir -p /var/log/.downloads
     sudo lxc-attach -n $container_name -- chmod 777 /var/log/.downloads
 
-    sudo cp -r "level$2" "/var/lib/lxc/$container_name/rootfs/usr/.warning_messages"
+    sudo cp -r "level$variance_level" "/var/lib/lxc/$container_name/rootfs/usr/.warning_messages"
+    
     # Moves the real commands into their paths named real-command
     sudo lxc-attach -n $container_name -- mv /usr/bin/wget /usr/bin/real-wget
     sudo lxc-attach -n $container_name -- mv /usr/bin/curl /usr/bin/real-curl
@@ -35,7 +37,7 @@ else
     sudo lxc-attach -n $container_name -- mv /usr/bin/emacs /usr/bin/real-emacs
     sudo lxc-attach -n $container_name -- mv /usr/bin/more /usr/bin/real-more
     sudo lxc-attach -n $container_name -- mv /usr/bin/less /usr/bin/real-less
-
+    
     sudo lxc-attach -n $container_name -- mv /usr/bin/sudo /usr/bin/real-sudo
     sudo lxc-attach -n $container_name -- mv /usr/bin/su /usr/bin/real-su
 
@@ -91,8 +93,11 @@ else
     sudo cp poisoned-rar.sh /var/lib/lxc/$container_name/rootfs/usr/bin/rar
     sudo cp poisoned-unrar.sh /var/lib/lxc/$container_name/rootfs/usr/bin/unrar
 
+    echo "ytes"
     sudo cp poisoned-vim.sh /var/lib/lxc/$container_name/rootfs/usr/bin/vim
+    echo "Ytest"
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/vim"
+    echo "test"
     sudo cp poisoned-nano.sh /var/lib/lxc/$container_name/rootfs/usr/bin/nano
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/nano"
     sudo cp poisoned-emacs.sh /var/lib/lxc/$container_name/rootfs/usr/bin/emacs
@@ -106,6 +111,7 @@ else
     sudo cp poisoned-less.sh /var/lib/lxc/$container_name/rootfs/usr/bin/less
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/bin/less"
 
+    echo "Testing"
     sudo cp poisoned-adduser.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/adduser
     sudo lxc-attach -n $container_name -- bash -c "chmod 755 /usr/sbin/adduser"
     sudo cp poisoned-deluser.sh /var/lib/lxc/$container_name/rootfs/usr/sbin/deluser

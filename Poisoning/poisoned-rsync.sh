@@ -1,7 +1,3 @@
 #!/bin/bash
-./warning_download_copy.sh
-read -p "Please acknowledge the warning above. (Y):" response
-if [ "$response" == "Y" || "$response" == "y" || "$response" == "Yes" || "$response" == "YES" || "$response" == "yes"]
-then
-  /usr/bin/real-rsync "$@"
-fi
+sudo cat /usr/.warning_messages/Download.txt
+sudo /usr/bin/real-rsync "$@"
