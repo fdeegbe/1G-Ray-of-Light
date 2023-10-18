@@ -2,9 +2,9 @@
 
 process_new_line() {
     # local var=''
-    while IFS= read -r line
+    while IFS= read -r line2
     do
-        attacker_ip=$(echo "$line" | cut -d ";" -f 2)
+        attacker_ip=$(echo "$line2" | cut -d ";" -f 2)
         # Need to add iptables rule
         if [ -n "$attacker_ip" ]; then
         echo $attacker_ip >> /LoginIPs

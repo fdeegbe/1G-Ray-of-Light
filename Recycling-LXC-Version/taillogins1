@@ -2,18 +2,16 @@
 
 process_new_line() {
     # local var=''
-    read
-    while true
+    while IFS= read -r line1
     do
-
-        attacker_ip=$(echo $REPLY | cut -d ";" -f 2)
+        attacker_ip=$(echo "$line1" | cut -d ";" -f 2)
         # Need to add iptables rule
+        if [ -n "$attacker_ip" ]; then
         echo $attacker_ip >> /LoginIPs
-        sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5001 --jump DROP -m comment --comment "Drop other attackers container1"
-
+            sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5001 --jump DROP -m comment --comment "Drop other attackers container1"
+        fi
         read
     done
 }
 
-touch /LoginIPs
 tail -n 0 -f /MITM/logs/logins/container1.log | process_new_line
