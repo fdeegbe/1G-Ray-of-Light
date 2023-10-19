@@ -26,13 +26,8 @@ container_ip=$(sudo lxc-ls -f | grep "$container_name " | tr -s " " | cut -d " "
 
 # Install openssh in the container.
 echo "Y" | sudo lxc-attach -n $container_name -- sudo apt install openssh-server
-# TODO: ###########################################################################
-# Sets up container based on level indicated by randomly generated number. You will
-# see this message when SSHing into the container. These parts will be replaced
-# with scripts that will completely contruct the banners for our systems. These
-# commands are here as placeholders for creating the systems to prove the randomness
-# of our systems.
-# TODO: #########################################################################
+sleep 3
+sudo lxc-attach -n $container_number -- /bin/bash -c "echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && service ssh restart"
 sudo /1G-Ray-of-Light/Variance/install_commands.sh $container_name
 sudo /1G-Ray-of-Light/Poisoning/poison_command.sh $container_name $container_variant
 if [ $container_variant == 1 ]
