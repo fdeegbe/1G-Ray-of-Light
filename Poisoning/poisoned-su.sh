@@ -1,4 +1,4 @@
 #!/bin/bash
 cat /usr/.warning_messages/Sudo.txt
-/usr/bin/real-nano "$@"
+sleep 2
 sudo /usr/bin/real-su "$@"

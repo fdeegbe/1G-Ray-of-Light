@@ -1,4 +1,4 @@
 #!/bin/bash
 cat /usr/.warning_messages/User.txt
-sleep 1
+sleep 2
 sudo /usr/bin/real-passwd $@
