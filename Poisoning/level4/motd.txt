@@ -1,10 +1,9 @@
 ----------------
 
-You are accessing a U.S. Government (USG) Information System (IS) that is
-provided for USG-authorized use only. By using this IS (which includes any
+By accessing this Information System (which includes any
 device attached to this IS), you consent to the following conditions:   
                                                                              
-- The United States Government may monitor, record, and audit your system usage, including
+- We may monitor, record, and audit your system usage, including
 usage of personal devices and email systems for official duties or to conduct business operations.
 Therefore, you have no reasonable expectation of privacy regarding any communication or data transiting
 or stored on this system. At any time, the government may for any lawful government purpose, monitor, intercept,
