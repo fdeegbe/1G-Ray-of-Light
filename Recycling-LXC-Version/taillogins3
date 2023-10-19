@@ -14,4 +14,5 @@ process_new_line() {
     done
 }
 
-tail -n 0 -f /MITM/logs/logins/container3.log | process_new_line
+# tail -n 0 -f /MITM/logs/logins/container3.log | process_new_line
+inotifywait --monitor --event modify /MITM/logs/logins/container3.log | process_new_line
