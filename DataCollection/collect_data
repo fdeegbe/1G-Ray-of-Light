@@ -39,10 +39,12 @@ for filename in /MITM/mitm_logs/$d/*.log; do
     # cat $filename | grep "line from reader: " | cut -d " " -f 9
 
     # Count number of sudos
-    sudo_count=$(grep -o 'sudo' "$filename" | wc -l)
+    sudo_count=$(grep -o 'sudo ' "$filename" | wc -l)
 
     # Need to integrate this
-    su_count=$(cat $filename | grep "line from reader: " | grep "su" | wc -l)
+    su_count=$(cat $filename | grep "line from reader: " | grep "su " | wc -l)
+
+    total_sudo=$((sudo_count + su_count))
 
 
     # Count number of commands (ignoring empty lines)
@@ -83,21 +85,21 @@ for filename in /MITM/mitm_logs/$d/*.log; do
     # User settings
     adduser_count=$(cat $filename | grep "line from reader: " | grep "adduser " | wc -l)
     passwd_count=$(cat $filename | grep "line from reader: " | grep "passwd " | wc -l)
-    chmod_count=$(cat $filename | grep "line from reader: " | grep "chmod " | wc -l)
+    # chmod_count=$(cat $filename | grep "line from reader: " | grep "chmod " | wc -l)
     deluser_count=$(cat $filename | grep "line from reader: " | grep "deluser " | wc -l)
     groupadd_count=$(cat $filename | grep "line from reader: " | grep "groupadd " | wc -l)
     groupdel_count=$(cat $filename | grep "line from reader: " | grep "groupdel " | wc -l)
     groupmod_count=$(cat $filename | grep "line from reader: " | grep "groupmod " | wc -l)
-    usersettings_count=$((adduser_count + passwd_count + chmod_count + deluser_count + groupadd_count + groupdel_count + groupmod_count))
+    usersettings_count=$((adduser_count + passwd_count + deluser_count + groupadd_count + groupdel_count + groupmod_count))
 
     # Number of banners seen (depends on poisoned commands)
-    banner_count=$((sudo_count + downloading_count + compression_count + rw_count + usersettings_count + 1)) 
+    banner_count=$((downloading_count + compression_count + rw_count + usersettings_count + 1)) 
 
-    echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count $downloading_count $compression_count $rw_count $usersettings_count $banner_count" >> $total_collection_filepath
+    echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $total_sudo $command_count $downloading_count $compression_count $rw_count $usersettings_count $banner_count" >> $total_collection_filepath
 
     if [[ $time_in_system -ne 0 ]]
     then
-        echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $sudo_count $command_count $downloading_count $compression_count $rw_count $usersettings_count $banner_count" >> $total_collection_attackers_filepath
+        echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $total_sudo $command_count $downloading_count $compression_count $rw_count $usersettings_count $banner_count" >> $total_collection_attackers_filepath
     fi
 done
 
