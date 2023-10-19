@@ -1,5 +1,4 @@
 #!/bin/bash
-
-sudo cat /usr/.warning_messages/Write.txt
+cat /usr/.warning_messages/Write.txt
 sleep 1
 /usr/bin/real-emacs "$@"
