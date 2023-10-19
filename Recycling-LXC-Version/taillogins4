@@ -1,10 +1,27 @@
 #!/bin/bash
 
+# process_new_line() {
+#     # local var=''
+#     while IFS= read -r line4
+#     do
+#         attacker_ip=$(echo "$line4" | cut -d ";" -f 2)
+#         # Need to add iptables rule
+#         if [ -n "$attacker_ip" ]; then
+#         echo $attacker_ip >> /LoginIPs
+#             sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5004 --jump DROP -m comment --comment "Drop other attackers container4"
+#         fi
+#         read
+#     done
+# }
+
+# # tail -n 0 -f /MITM/logs/logins/container4.log | process_new_line
+# inotifywait --monitor --event modify /MITM/logs/logins/container4.log | process_new_line
+
 process_new_line() {
     # local var=''
-    while IFS= read -r line4
-    do
-        attacker_ip=$(echo "$line4" | cut -d ";" -f 2)
+    while IFS= read -r path event; do
+        line1=$(tail -n 1 /MITM/logs/logins/container4.log)
+        attacker_ip=$(echo "$line1" | cut -d ";" -f 2)
         # Need to add iptables rule
         if [ -n "$attacker_ip" ]; then
         echo $attacker_ip >> /LoginIPs
@@ -14,5 +31,4 @@ process_new_line() {
     done
 }
 
-# tail -n 0 -f /MITM/logs/logins/container4.log | process_new_line
 inotifywait --monitor --event modify /MITM/logs/logins/container4.log | process_new_line

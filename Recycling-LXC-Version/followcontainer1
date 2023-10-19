@@ -2,8 +2,8 @@
 
 process_new_line() {
     # local var=''
-    while IFS= read -r path event file; do
-        line1=$(tail -1 "$file")
+    while IFS= read -r path event; do
+        line1=$(tail -n 1 /MITM/logs/logins/container1.log)
         attacker_ip=$(echo "$line1" | cut -d ";" -f 2)
         # Need to add iptables rule
         if [ -n "$attacker_ip" ]; then
