@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cat /usr/.warning_messages/Write.txt
-sleep 1
+sleep 2
 /usr/bin/real-nano "$@"

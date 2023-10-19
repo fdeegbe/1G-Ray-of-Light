@@ -1,6 +1,6 @@
 #!/bin/bash
 
 cat /usr/.warning_messages/Compression.txt
-/usr/bin/real-nano "$@"
+sleep 2
 sudo /usr/bin/real-rar "$@"
 

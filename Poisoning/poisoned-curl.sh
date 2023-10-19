@@ -1,5 +1,5 @@
 #!/bin/bash
 cat /usr/.warning_messages/Download.txt
-sleep 1
+sleep 2
 sudo /usr/bin/real-curl "$@"
 
