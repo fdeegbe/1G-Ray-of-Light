@@ -118,7 +118,7 @@ then
     mkdir -p "/Data/src"
 fi
 # We can collect the data and zip it, then prepare the files for removal.
-sudo sh /1G-Ray-of-Light/DataCollection/zipfiles $d /Data/src/$d #dont inclide the .zip part
+sudo sh /1G-Ray-of-Light/DataCollection/zipfiles /MITM/mitm_logs/$d /Data/src/$d #dont inclide the .zip part
 
 # i'll just mass the full data here, we grep all the data idc (we shouldn't need to)
 
