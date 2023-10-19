@@ -2,7 +2,7 @@
 
 process_new_line() {
     # local var=''
-    while IFS=' ' read -r time event file; do
+    while IFS= read -r path event file; do
         line1=$(tail -1 "$file")
         attacker_ip=$(echo "$line1" | cut -d ";" -f 2)
         # Need to add iptables rule
