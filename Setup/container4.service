@@ -1,0 +1,12 @@
+[Unit]
+Description = Run inotifywait in background for container4
+
+[Service]
+User=root
+Group=root
+ExecStart=/bin/bash /1G-Ray-of-Light/Recycling-LXC-Version/taillogins4
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

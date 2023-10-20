@@ -5,12 +5,12 @@ process_new_line() {
     while IFS= read -r path event; do
 
         # Adding iptables rule to not allow other attackers into the honeypot
-        line1=$(tail -n 1 /MITM/logs/logins/container4.log)
+        line1=$(tail -n 1 /MITM/logs/logins/container5.log)
         attacker_ip=$(echo "$line1" | cut -d ";" -f 2)
         # Need to add iptables rule
         if [ -n "$attacker_ip" ]; then
             echo $attacker_ip >> /LoginIPs
-            sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5004 --jump DROP -m comment --comment "Drop other attackers container4"
+            sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5005 --jump DROP -m comment --comment "Drop other attackers container5"
         fi
 
         sudo wall "goin to bed yall"
@@ -19,12 +19,12 @@ process_new_line() {
 
         sudo wall "wake up"
 
-        sudo /1G-Ray-of-Light/Recycling-LXC-Version/container-delete container4
+        sudo /1G-Ray-of-Light/Recycling-LXC-Version/container-delete container5
 
         random_byte=$(od -An -N1 -i /dev/urandom)
         random_number=$((random_byte % 4 + 1))
 
-        sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.115 5004 container4
+        sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.188 5005 container5
 
         sleep 5
 
@@ -34,16 +34,16 @@ process_new_line() {
 }
 
 # Delete to make sure container is gone in case the process/service stopped mid recycle last time
-sudo /1G-Ray-of-Light/Recycling-LXC-Version/container-delete container4
+sudo /1G-Ray-of-Light/Recycling-LXC-Version/container-delete container5
 
 # Get random number
 random_byte=$(od -An -N1 -i /dev/urandom)
 random_number=$((random_byte % 4 + 1))
 
 # Create container
-sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.115 5004 container4
+sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.188 5005 container5
 
 sleep 5
 
 # Wait for new ips to log into container
-sudo inotifywait --monitor --event modify /MITM/logs/logins/container4.log | process_new_line
+sudo inotifywait --monitor --event modify /MITM/logs/logins/container5.log | process_new_line
