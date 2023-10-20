@@ -33,12 +33,17 @@ process_new_line() {
     done
 }
 
+# Delete to make sure container is gone in case the process/service stopped mid recycle last time
+sudo /1G-Ray-of-Light/Recycling-LXC-Version/container-delete container1
 
+# Get random number
 random_byte=$(od -An -N1 -i /dev/urandom)
 random_number=$((random_byte % 4 + 1))
 
+# Create container
 sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.25 5001 container1
 
 sleep 5
 
+# Wait for new ips to log into container
 sudo inotifywait --monitor --event modify /MITM/logs/logins/container1.log | process_new_line
