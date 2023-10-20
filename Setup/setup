@@ -28,17 +28,28 @@ chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins1
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins2
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins3
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins4
+chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins5
 
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/container-delete
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/recycle-delete
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create
 
-
-
 sudo cp /1G-Ray-of-Light/Setup/container1.service /lib/systemd/system/
+sudo cp /1G-Ray-of-Light/Setup/container2.service /lib/systemd/system/
+sudo cp /1G-Ray-of-Light/Setup/container3.service /lib/systemd/system/
+sudo cp /1G-Ray-of-Light/Setup/container4.service /lib/systemd/system/
+sudo cp /1G-Ray-of-Light/Setup/container5.service /lib/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable container1
 sudo systemctl start container1
+sudo systemctl enable container2
+sudo systemctl start container2
+sudo systemctl enable container3
+sudo systemctl start container3
+sudo systemctl enable container4
+sudo systemctl start container4
+sudo systemctl enable container5
+sudo systemctl start container5
 
 # Setup for data collection.
 mkdir /Data
