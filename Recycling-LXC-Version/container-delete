@@ -22,8 +22,8 @@ sudo lxc-stop -n "$container_name"
 sudo lxc-destroy -n "$container_name"
 
 # Remove iptables rules
-pub=$(echo "128.8.238.25 128.8.238.39 128.8.238.58 128.8.238.115" | cut -d " " -f $i)
-ip_addr=$(sudo lxc-ls -f | grep "container$i" | tr -s " " | cut -d " " -f 5)
+pub=$(echo "128.8.238.25 128.8.238.39 128.8.238.58 128.8.238.115" | cut -d " " -f $container_number)
+ip_addr=$(sudo lxc-ls -f | grep "container$container_number" | tr -s " " | cut -d " " -f 5)
 port=$((5000 + container_number))
 
 sudo iptables --table nat --delete PREROUTING --source 0.0.0.0/0 --destination $pub --jump DNAT --to-destination $ip_addr
