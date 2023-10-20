@@ -18,7 +18,7 @@ process_new_line() {
         sleep 5m
 
         sudo wall "wake up"
-        
+
         sudo /1G-Ray-of-Light/Recycling-LXC-Version/container-delete container1
 
         random_byte=$(od -An -N1 -i /dev/urandom)
