@@ -26,6 +26,8 @@ process_new_line() {
 
         sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.25 5001 container1
 
+        sleep 5
+
     done
 }
 
@@ -34,5 +36,7 @@ random_byte=$(od -An -N1 -i /dev/urandom)
 random_number=$((random_byte % 4 + 1))
 
 sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.25 5001 container1
+
+sleep 5
 
 sudo inotifywait --monitor --event modify /MITM/logs/logins/container1.log | process_new_line
