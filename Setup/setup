@@ -28,13 +28,17 @@ chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins1
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins2
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins3
 chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogins4
-# chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts1
-# chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts2
-# chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts3
-# chmod +x /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts4
+
+chomd +x /1G-Ray-of-Light/Recycling-LXC-Version/container-delete
+chomd +x /1G-Ray-of-Light/Recycling-LXC-Version/recycle-delete
+chomd +x /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create
 
 
 
+sudo cp /1G-Ray-of-Light/Setup/container1.service /lib/systemd/system/
+sudo systemctl enable container1
+sudo systemctl start container1
+sudo systemctl daemon-reload
 
 # Setup for data collection.
 mkdir /Data
@@ -45,15 +49,7 @@ echo "Date Start_Time End_Time Time_In_System Level Sudo_Count Command_Count Dow
 
 # Set up crontab in root crontab.
 # echo -e "*/10 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle\n*/5 * * * * /1G-Ray-of-Light/DataCollection/collect_data\n@reboot sh /1G-Ray-of-Light/Setup/firewall_rules.sh\n* * * * * ps aux|grep -v grep|grep -q taillogins1 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins1 &\n* * * * * ps aux|grep -v grep|grep -q taillogouts1 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts1 &\n* * * * * ps aux|grep -v grep|grep -q taillogins2 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins2 &\n* * * * * ps aux|grep -v grep|grep -q taillogouts2 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts2 &\n* * * * * ps aux|grep -v grep|grep -q taillogins3 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins3 &\n* * * * * ps aux|grep -v grep|grep -q taillogouts3 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts3 &\n* * * * * ps aux|grep -v grep|grep -q taillogins4 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins4 &\n* * * * * ps aux|grep -v grep|grep -q taillogouts4 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogouts4 &\n\n" | sudo crontab -
-echo -e "*/30 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle\n0 1 * * * /1G-Ray-of-Light/DataCollection/collect_data\n@reboot sh /1G-Ray-of-Light/Setup/firewall_rules.sh\n* * * * * ps aux|grep -v grep|grep -q taillogins1 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins1 &\n* * * * * ps aux|grep -v grep|grep -q taillogins2 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins2 &\n* * * * * ps aux|grep -v grep|grep -q taillogins3 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins3 &\n* * * * * ps aux|grep -v grep|grep -q taillogins4 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins4 &\n\n" | sudo crontab -
+# echo -e "*/30 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle\n0 1 * * * /1G-Ray-of-Light/DataCollection/collect_data\n@reboot sh /1G-Ray-of-Light/Setup/firewall_rules.sh\n* * * * * ps aux|grep -v grep|grep -q taillogins1 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins1 &\n* * * * * ps aux|grep -v grep|grep -q taillogins2 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins2 &\n* * * * * ps aux|grep -v grep|grep -q taillogins3 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins3 &\n* * * * * ps aux|grep -v grep|grep -q taillogins4 || /1G-Ray-of-Light/Recycling-LXC-Version/taillogins4 &\n\n" | sudo crontab -
 
 
-
-# # Set up crontab in root crontab for the permissions.
-# echo -e "*/10 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle\n" | sudo crontab -
-
-# # Set up crontab for data collection.
-# echo -e "*/5 * * * * /1G-Ray-of-Light/DataCollection/collect_data\n" >> sudo crontab -
-
-# # Set up firewall rules for reboot
-# echo -e "@reboot sh /1G-Ray-of-Light/Setup/firewall_rules.sh\n" >> sudo crontab -
+echo -e "*/30 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/recycle\n0 1 * * * /1G-Ray-of-Light/DataCollection/collect_data\n@reboot sh /1G-Ray-of-Light/Setup/firewall_rules.sh\n* * * * *\n\n" | sudo crontab -

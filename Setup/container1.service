@@ -1,0 +1,11 @@
+[Unit]
+Description = Run inotifywait in backgoround
+
+[Service]
+User=ubuntu
+Group=ubuntu
+ExecStart=/bin/bash /1G-Ray-of-Light/Recycling-LXC-Version/taillogins1
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
