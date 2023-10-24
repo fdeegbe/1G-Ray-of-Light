@@ -13,11 +13,7 @@ process_new_line() {
             sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5003 --jump DROP -m comment --comment "Drop other attackers container3"
         fi
 
-        sudo wall "goin to bed yall"
-
         sleep 5m
-
-        sudo wall "wake up"
 
         sudo /1G-Ray-of-Light/Recycling-LXC-Version/container-delete container3
 
