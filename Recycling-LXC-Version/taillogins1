@@ -13,13 +13,29 @@ process_new_line() {
             sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5001 --jump DROP -m comment --comment "Drop other attackers container1"
         fi
 
-        sleep 5m
         # While loop instead of sleep
+        while true; do
+            sleep 15
+            filepath=$(cat /CurrentRunningFiles/container1)
+            # get the end time of the file
+            most_recent_time=$(cat $filepath | tail -n 1 | tr -s " " | cut -d " " -f 2 | cut -d "." -f 1)
+            # if they are idle for more than a minute then we are recycling
 
+            curr_time_seconds=$(date '+%s')
+            recent_time_seconds=$(date -d "$most_recent_time" +%s)
 
+            difference=$(($curr_time_seconds - $recent_time_seconds))
 
+            if [ "$difference" -gt 20 ]; then
+                wall "Time difference for container1 is greater than 20 seconds: $difference seconds"
+                sudo systemctl restart container1
+                # Add your action here, e.g., run a specific command or script
+            else
+                echo "Time difference for container1 is not greater than 20 seconds: $difference seconds"
+            fi
 
-        sudo systemctl restart container3
+        done
+
     done
 }
 
