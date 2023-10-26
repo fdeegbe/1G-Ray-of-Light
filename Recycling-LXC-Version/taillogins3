@@ -14,7 +14,7 @@ process_new_line() {
         fi
 
         sleep 5m
-        sudo systemctl restart container1
+        sudo systemctl restart container3
     done
 }
 
