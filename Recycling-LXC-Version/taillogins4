@@ -14,18 +14,7 @@ process_new_line() {
         fi
 
         sleep 5m
-
-        sudo /1G-Ray-of-Light/Recycling-LXC-Version/container-delete container4
-
-        random_byte=$(od -An -N1 -i /dev/urandom)
-        random_number=$((random_byte % 4 + 1))
-
-        sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.115 5004 container4
-
-        sleep 5
-
-        read
-
+        sudo systemctl restart container4
     done
 }
 

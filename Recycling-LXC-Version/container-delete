@@ -11,8 +11,10 @@ container_name=$1
 container_number=$(echo $container_name | colrm 1 9)
 
 # Stop the forever process
-forever_id=$(sudo forever list | grep "$container_name" | cut -d " " -f 22)
+forever_id=$(sudo forever list | grep "$container_name" | tr -s ' '  | cut -d " " -f 17)
 sudo forever stop $forever_id
+# forever_id=$(sudo forever list | grep "$container_name" | cut -d " " -f 22)
+# sudo forever stop $forever_id
 
 # Might need to do this, not sure
 # forever_pid=$(sudo forever list | grep "$container_name" | cut -d " " -f 20) | sudo kill -9 $forever_pid
