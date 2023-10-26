@@ -14,6 +14,11 @@ process_new_line() {
         fi
 
         sleep 5m
+        # While loop instead of sleep
+
+
+
+
         sudo systemctl restart container3
     done
 }
