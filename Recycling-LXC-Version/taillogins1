@@ -15,7 +15,7 @@ process_new_line() {
 
         # While loop instead of sleep
         while true; do
-            sleep 15
+            sleep 5
             filepath=$(cat /CurrentRunningFiles/container1)
             # get the end time of the file
             most_recent_time=$(cat $filepath | tail -n 1 | tr -s " " | cut -d " " -f 2 | cut -d "." -f 1)
@@ -27,11 +27,11 @@ process_new_line() {
             difference=$(($curr_time_seconds - $recent_time_seconds))
 
             if [ "$difference" -gt 20 ]; then
-                wall "Time difference for container1 is greater than 20 seconds: $difference seconds"
+                # wall "Time difference for container1 is greater than 20 seconds: $difference seconds"
                 sudo systemctl restart container1
                 # Add your action here, e.g., run a specific command or script
-            else
-                echo "Time difference for container1 is not greater than 20 seconds: $difference seconds"
+            # else
+            #     wall "Time difference for container1 is not greater than 20 seconds: $difference seconds"
             fi
 
         done
@@ -48,8 +48,6 @@ random_number=$((random_byte % 4 + 1))
 
 # Create container
 sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.25 5001 container1
-
-sleep 5
 
 # Wait for new ips to log into container
 sudo inotifywait --monitor --event modify /MITM/logs/logins/container1.log | process_new_line

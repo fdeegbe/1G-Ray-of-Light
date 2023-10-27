@@ -13,8 +13,29 @@ process_new_line() {
             sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5005 --jump DROP -m comment --comment "Drop other attackers container5"
         fi
 
-        sleep 5m
-        sudo systemctl restart container5
+        # While loop instead of sleep
+        while true; do
+            sleep 5
+            filepath=$(cat /CurrentRunningFiles/container5)
+            # get the end time of the file
+            most_recent_time=$(cat $filepath | tail -n 1 | tr -s " " | cut -d " " -f 2 | cut -d "." -f 1)
+            # if they are idle for more than a minute then we are recycling
+
+            curr_time_seconds=$(date '+%s')
+            recent_time_seconds=$(date -d "$most_recent_time" +%s)
+
+            difference=$(($curr_time_seconds - $recent_time_seconds))
+
+            if [ "$difference" -gt 20 ]; then
+                # wall "Time difference for container5 is greater than 20 seconds: $difference seconds"
+                sudo systemctl restart container5
+                # Add your action here, e.g., run a specific command or script
+            # else
+            #     wall "Time difference for container5 is not greater than 20 seconds: $difference seconds"
+            fi
+
+        done
+
     done
 }
 
@@ -27,8 +48,6 @@ random_number=$((random_byte % 4 + 1))
 
 # Create container
 sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.188 5005 container5
-
-sleep 5
 
 # Wait for new ips to log into container
 sudo inotifywait --monitor --event modify /MITM/logs/logins/container5.log | process_new_line
