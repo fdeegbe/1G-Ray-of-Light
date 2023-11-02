@@ -173,14 +173,15 @@
 
         if [ $time_in_system -ne 0 ]
         then
+            cp $filename $total_collection_interactive/$filename
             echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $total_sudo $command_count $downloading_count $compression_count $rw_count $usersettings_count $sudo_count_non $command_count_non $downloading_count_non $compression_count_non $rw_count_non $usersettings_count_non $banner_count" >> $total_collection_attackers_filepath_2
         fi
         # check if a session is interactive
-        if [ $LXC_stream_start_time=="NA" && $LXC_stream_end_time=="NA"]
-        then
-            # make a copy of the mitm_log for interactive sessions within Data
-            cp $filename $total_collection_interactive/$filename
-        end
+        # if [ $LXC_stream_start_time=="NA" && $LXC_stream_end_time=="NA"]
+        # then
+        #     # make a copy of the mitm_log for interactive sessions within Data
+        #     cp $filename $total_collection_interactive/$filename
+        # end
 
     done
 
