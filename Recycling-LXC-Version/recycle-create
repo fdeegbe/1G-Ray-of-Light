@@ -13,10 +13,10 @@ assigned_ip=$2
 mitm_port=$3
 container_name=$4
 
-sudo lxc-create -n $container_name -t download -- -d ubuntu -r focal -a amd64
+sudo lxc-copy -n template -N "$container_name"
 
 sudo lxc-start -n $container_name
-sleep 5
+sleep 15
 # TODO: finish this
 sudo cp /1G-Ray-of-Light/HoneyCreation/filegen.py /var/lib/lxc/$container_name/rootfs/home
 sudo lxc-attach -n $container_name -- sudo python3 /home/filegen.py
@@ -28,7 +28,6 @@ container_ip=$(sudo lxc-ls -f | grep "$container_name " | tr -s " " | cut -d " "
 echo "Y" | sudo lxc-attach -n $container_name -- sudo apt install openssh-server
 sleep 3
 sudo lxc-attach -n $container_name -- /bin/bash -c "echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && service ssh restart"
-sudo /1G-Ray-of-Light/Variance/install_commands.sh $container_name
 sudo /1G-Ray-of-Light/Poisoning/poison_command.sh $container_name $container_variant
 if [ $container_variant == 1 ]
 then
@@ -62,10 +61,14 @@ sudo mkdir /MITM/mitm_logs
 sudo mkdir /MITM/mitm_logs/$d
 
 # Start the MITM server and make associated log file with time and name in the date directory.
-sudo forever -l /MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log start /MITM/mitm.js -n $container_name -i $container_ip -p $mitm_port --auto-access --auto-access-fixed 3 --debug
+sudo forever -l /MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log start /MITM/mitm.js -n $container_name -i $container_ip -p $mitm_port --auto-access --auto-access-fixed 1 --debug
+
+# Echo name of file to proper montoring location
+sudo echo "/MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log" | sudo tee /CurrentRunningFiles/$container_name
 
 # Insert necessary nat rules.
 sudo ip addr add $assigned_ip/16 brd + dev eth1
 sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $assigned_ip --jump DNAT --to-destination $container_ip
 sudo iptables --table nat --insert POSTROUTING --source $container_ip --destination 0.0.0.0/0 --jump SNAT --to-source $assigned_ip
 sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination $assigned_ip --protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:$mitm_port
+

@@ -1,182 +1,195 @@
-#!/bin/bash
+    #!/bin/bash
 
-# Data collection
+    # Data collection
+      d=$1
+    # d=$(date +%Y-%m-%d)
+    # This will go through yesterday's files
+    # d=$(date -d "1 day ago" +%Y-%m-%d)
 
-# d=$(date +%Y-%m-%d)
-# This will go through yesterday's files
-d=$(date -d "1 day ago" +%Y-%m-%d)
+    total_collection_filepath=$(echo "/Data/cumulative")
+    total_collection_attackers_filepath=$(echo "/Data/cumulative_with_attackers")
 
-total_collection_filepath=$(echo "/Data/cumulative")
-total_collection_attackers_filepath=$(echo "/Data/cumulative_with_attackers")
+    total_collection_filepath_2=$(echo "/Data/cumulative2")
+    total_collection_attackers_filepath_2=$(echo "/Data/cumulative_with_attackers2")
 
-for filename in /MITM/mitm_logs/$d/*.log; do
-    echo $filename
+    for filename in /MITM/mitm_logs/$d/*.log; do
+        echo $filename
 
-    # Get time MITM started
-    start_time=$(cat $filename | grep "SSH man-in-the-middle server for" | cut -d " " -f 2 | cut -d "." -f 1)
-    # If you don't want decimal points:
-    # start_time=$(cat $filename | grep "SSH man-in-the-middle server for" | cut -d " " -f 2 | cut -d "." -f 1)
+        # Get time MITM started
+        start_time=$(cat $filename | grep "SSH man-in-the-middle server for" | cut -d " " -f 2 | cut -d "." -f 1)
+        # If you don't want decimal points:
+        # start_time=$(cat $filename | grep "SSH man-in-the-middle server for" | cut -d " " -f 2 | cut -d "." -f 1)
 
-    # LXC Stream open and stream close (use as proxy for start and end of attacker session, other values like )
-    LXC_stream_start_time=$(cat $filename | grep "\[LXC Streams] New Stream" | cut -d " " -f 2 | cut -d "." -f 1 | head -n 1)
-    LXC_stream_end_time=$(cat $filename | grep "\[LXC Streams] Removed Stream" | cut -d " " -f 2 | cut -d "." -f 1 | tail -n 1)
-    # time_in_system=$(($LXC_stream_end - $LXC_stream_start))
+        # LXC Stream open and stream close (use as proxy for start and end of attacker session, other values like )
+        LXC_stream_start_time=$(cat $filename | grep "\[LXC Streams] New Stream" | cut -d " " -f 2 | cut -d "." -f 1 | head -n 1)
+        LXC_stream_end_time=$(tail -n 2 $filename | head -n 1 | cut -d "." -f 1 | cut -d " " -f 2) 
 
-
-    LXC_stream_start=$(cat $filename | grep "\[LXC Streams] New Stream" | cut -d " " -f 1,2 | cut -d "." -f 1 | head -n 1)
-    LXC_stream_end=$(cat $filename | grep "\[LXC Streams] Removed Stream" | cut -d " " -f 1,2 | cut -d "." -f 1 | tail -n 1)
-
-    seconds1=$(date --date "$LXC_stream_start" +%s)
-    seconds2=$(date --date "$LXC_stream_end" +%s)
-    time_in_system=$((seconds2 - seconds1))
-
-
-    # Get level of system
-    level=$(echo $filename | cut -d "-" -f 5 | cut -d ":" -f 2 | cut -d "." -f 1)
-    #ORIGINAL: level=$(echo $filepath | cut -d "-" -f 3 | cut -d ":" -f 2 | cut -d "." -f 1)
-
-    # First thing after line reader
-    # cat $filename | grep "line from reader: " | cut -d " " -f 9
-
-    # Count number of sudos
-    sudo_count=$(cat $filename | grep "line from reader: " | grep "sudo " | wc -l)
-
-    # Need to integrate this
-    su_count=$(cat $filename | grep "line from reader: " | grep "su " | wc -l)
-
-    total_sudo=$((sudo_count + su_count))
+        if [ -z $LXC_stream_start_time ]
+            then
+            LXC_stream_end_time=$(cat $filename | grep "\[LXC Streams] Removed Stream" | cut -d " " -f 2 | cut -d "." -f 1 | tail -n 1)
+        fi
 
 
-    # Count number of commands (ignoring empty lines)
-    command_count=$(cat $filename | grep "line from reader: " | cut -d " " -f 9 | grep "\S" | wc -l)
+        LXC_stream_start=$(cat $filename | grep "\[LXC Streams] New Stream" | cut -d "." -f 1 | head -n 1)
+        LXC_stream_end=$(tail -n 2 $filename | head -n 1 | cut -d "." -f 1)
+
+        if [ -z $LXC_stream_start_time ]
+            then
+            LXC_stream_end=$(cat $filename | grep "\[LXC Streams] Removed Stream" | cut -d "." -f 1 | tail -n 1)
+        fi
+
+        seconds1=$(date --date "$LXC_stream_start" +%s)
+        seconds2=$(date --date "$LXC_stream_end" +%s)
+        time_in_system=$((seconds2 - seconds1))
 
 
-    # Here do we want to do # of wget and curl stuff to see how much malware commands
-    # We might need to redo this, replacing "sudo" and taking only the first one before grepping for the specific command
-    # Downloading/copying files
-    wget_count=$(cat $filename | grep "line from reader: " | grep "wget " | wc -l)
-    curl_count=$(cat $filename | grep "line from reader: " | grep "curl " | wc -l)
-    scp_count=$(cat $filename | grep "line from reader: " | grep "scp " | wc -l)
-    rsync_count=$(cat $filename | grep "line from reader: " | grep "rsync " | wc -l)
-    git_count=$(cat $filename | grep "line from reader: " | grep "git " | wc -l)
-    downloading_count=$((wget_count + curl_count + scp_count + rsync_count + git_count))
+        # Get level of system
+        level=$(echo $filename | cut -d "-" -f 5 | cut -d ":" -f 2 | cut -d "." -f 1)
+        #ORIGINAL: level=$(echo $filepath | cut -d "-" -f 3 | cut -d ":" -f 2 | cut -d "." -f 1)
 
-    # Compression
-    # NEED SOME CHANGES FOR OVERLAP STUFF
-    tar_count=$(cat $filename | grep "line from reader: " | grep "tar " | wc -l)
-    gzip_count=$(cat $filename | grep "line from reader: " | grep " gzip " | wc -l)
-    gunzip_count=$(cat $filename | grep "line from reader: " | grep "gunzip " | wc -l)
-    bzip2_count=$(cat $filename | grep "line from reader: " | grep "bzip2 " | wc -l)
-    bunzip2_count=$(cat $filename | grep "line from reader: " | grep "bunzip2 " | wc -l)
-    zip_count=$(cat $filename | grep "line from reader: " | grep " zip " | wc -l)
-    unzip_count=$(cat $filename | grep "line from reader: " | grep " unzip " | wc -l)
-    rar_count=$(cat $filename | grep "line from reader: " | grep " rar " | wc -l)
-    unrar_count=$(cat $filename | grep "line from reader: " | grep "unrar " | wc -l)
-    compression_count=$((tar_count + gzip_count + gunzip_count + bzip2_count + bunzip2_count + zip_count + unzip_count + rar_count + unrar_count))
+        # First thing after line reader
+        # cat $filename | grep "line from reader: " | cut -d " " -f 9
 
-    # Reading/writing files
-    vim_count=$(cat $filename | grep "line from reader: " | grep "vim " | wc -l)
-    nano_count=$(cat $filename | grep "line from reader: " | grep "nano " | wc -l)
-    emacs_count=$(cat $filename | grep "line from reader: " | grep "emacs " | wc -l)
-    more_count=$(cat $filename | grep "line from reader: " | grep "more " | wc -l)
-    less_count=$(cat $filename | grep "line from reader: " | grep "less " | wc -l)
-    rw_count=$((vim_count + nano_count + emacs_count + more_count + less_count))
+        # Count number of sudos
+        sudo_count=$(cat $filename | grep "line from reader: " | grep "sudo " | wc -l)
 
-    # User settings
-    adduser_count=$(cat $filename | grep "line from reader: " | grep "adduser " | wc -l)
-    passwd_count=$(cat $filename | grep "line from reader: " | grep "passwd " | wc -l)
-    deluser_count=$(cat $filename | grep "line from reader: " | grep "deluser " | wc -l)
-    groupadd_count=$(cat $filename | grep "line from reader: " | grep "groupadd " | wc -l)
-    groupdel_count=$(cat $filename | grep "line from reader: " | grep "groupdel " | wc -l)
-    groupmod_count=$(cat $filename | grep "line from reader: " | grep "groupmod " | wc -l)
-    usersettings_count=$((adduser_count + passwd_count + deluser_count + groupadd_count + groupdel_count + groupmod_count))
+        # Need to integrate this
+        su_count=$(cat $filename | grep "line from reader: " | grep "su " | wc -l)
+
+        total_sudo=$((sudo_count + su_count))
 
 
-    # Noninteractive Stuff
-    command_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | wc -l)
-
-    # Count number of sudos
-    sudo_count_non=$(cat $filename | grep "Noninteractive mode attacker command: " | grep -o 'sudo ' | wc -l)
+        # Count number of commands (ignoring empty lines)
+        command_count=$(cat $filename | grep "line from reader: " | cut -d " " -f 9 | grep "\S" | wc -l)
 
 
-    # Downloading/copying files noninteractive
-    wget_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "wget " | wc -l)
-    curl_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "curl " | wc -l)
-    scp_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "scp " | wc -l)
-    rsync_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "rsync " | wc -l)
-    git_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "git " | wc -l)
-    downloading_count_non=$((wget_count_non + curl_count_no + scp_count_non + rsync_count_non + git_count_non))
+        # Here do we want to do # of wget and curl stuff to see how much malware commands
+        # We might need to redo this, replacing "sudo" and taking only the first one before grepping for the specific command
+        # Downloading/copying files
+        wget_count=$(cat $filename | grep "line from reader: " | grep "wget " | wc -l)
+        curl_count=$(cat $filename | grep "line from reader: " | grep "curl " | wc -l)
+        scp_count=$(cat $filename | grep "line from reader: " | grep "scp " | wc -l)
+        rsync_count=$(cat $filename | grep "line from reader: " | grep "rsync " | wc -l)
+        git_count=$(cat $filename | grep "line from reader: " | grep "git " | wc -l)
+        downloading_count=$((wget_count + curl_count + scp_count + rsync_count + git_count))
 
-    # Compression noninteractive
-    tar_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "tar " | wc -l)
-    gzip_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep " gzip " | wc -l)
-    gunzip_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "gunzip " | wc -l)
-    bzip2_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "bzip2 " | wc -l)
-    bunzip2_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "bunzip2 " | wc -l)
-    zip_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep " zip " | wc -l)
-    unzip_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep " unzip " | wc -l)
-    rar_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep " rar " | wc -l)
-    unrar_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "unrar " | wc -l)
-    compression_count_non=$((tar_count_non + gzip_count_non + gunzip_count_non + bzip2_count_non + bunzip2_count_non + zip_count_non + unzip_count_non + rar_count_non + unrar_count_non))
-    
-    # Reading/writing files noninteractive
-    vim_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "vim " | wc -l)
-    nano_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "nano " | wc -l)
-    emacs_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "emacs " | wc -l)
-    more_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "more " | wc -l)
-    less_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "less " | wc -l)
-    rw_count_non=$((vim_count_non + nano_count_non + emacs_count + more_count + less_count))
+        # Compression
+        # NEED SOME CHANGES FOR OVERLAP STUFF
+        tar_count=$(cat $filename | grep "line from reader: " | grep "tar " | wc -l)
+        gzip_count=$(cat $filename | grep "line from reader: " | grep " gzip " | wc -l)
+        gunzip_count=$(cat $filename | grep "line from reader: " | grep "gunzip " | wc -l)
+        bzip2_count=$(cat $filename | grep "line from reader: " | grep "bzip2 " | wc -l)
+        bunzip2_count=$(cat $filename | grep "line from reader: " | grep "bunzip2 " | wc -l)
+        zip_count=$(cat $filename | grep "line from reader: " | grep " zip " | wc -l)
+        unzip_count=$(cat $filename | grep "line from reader: " | grep " unzip " | wc -l)
+        rar_count=$(cat $filename | grep "line from reader: " | grep " rar " | wc -l)
+        unrar_count=$(cat $filename | grep "line from reader: " | grep "unrar " | wc -l)
+        compression_count=$((tar_count + gzip_count + gunzip_count + bzip2_count + bunzip2_count + zip_count + unzip_count + rar_count + unrar_count))
 
-    # User noninteractive
-    adduser_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "adduser " | wc -l)
-    passwd_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "passwd " | wc -l)
-    deluser_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "deluser " | wc -l)
-    groupadd_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "groupadd " | wc -l)
-    groupdel_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "groupdel " | wc -l)
-    groupmod_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "groupmod " | wc -l)
-    usersettings_count_non=$((adduser_count_non + passwd_count_non + deluser_count_non + groupadd_count_non + groupdel_count_non + groupmod_count_non))
+        # Reading/writing files
+        vim_count=$(cat $filename | grep "line from reader: " | grep "vim " | wc -l)
+        nano_count=$(cat $filename | grep "line from reader: " | grep "nano " | wc -l)
+        emacs_count=$(cat $filename | grep "line from reader: " | grep "emacs " | wc -l)
+        more_count=$(cat $filename | grep "line from reader: " | grep "more " | wc -l)
+        less_count=$(cat $filename | grep "line from reader: " | grep "less " | wc -l)
+        rw_count=$((vim_count + nano_count + emacs_count + more_count + less_count))
 
-    # Number of banners seen (depends on poisoned commands)
-    banner_count=$((downloading_count + compression_count + rw_count + usersettings_count + downloading_count_non + compression_count_non + rw_count_non + usersettings_count_non)) 
+        # User settings
+        adduser_count=$(cat $filename | grep "line from reader: " | grep "adduser " | wc -l)
+        passwd_count=$(cat $filename | grep "line from reader: " | grep "passwd " | wc -l)
+        deluser_count=$(cat $filename | grep "line from reader: " | grep "deluser " | wc -l)
+        groupadd_count=$(cat $filename | grep "line from reader: " | grep "groupadd " | wc -l)
+        groupdel_count=$(cat $filename | grep "line from reader: " | grep "groupdel " | wc -l)
+        groupmod_count=$(cat $filename | grep "line from reader: " | grep "groupmod " | wc -l)
+        usersettings_count=$((adduser_count + passwd_count + deluser_count + groupadd_count + groupdel_count + groupmod_count))
 
-    if [[ $time_in_system -ne 0 ]]
+
+        # Noninteractive Stuff
+        command_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | wc -l)
+
+        # Count number of sudos
+        sudo_count_non=$(cat $filename | grep "Noninteractive mode attacker command: " | grep -o 'sudo ' | wc -l)
+
+
+        # Downloading/copying files noninteractive
+        wget_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "wget " | wc -l)
+        curl_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "curl " | wc -l)
+        scp_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "scp " | wc -l)
+        rsync_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "rsync " | wc -l)
+        git_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "git " | wc -l)
+        downloading_count_non=$((wget_count_non + curl_count_no + scp_count_non + rsync_count_non + git_count_non))
+
+        # Compression noninteractive
+        tar_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "tar " | wc -l)
+        gzip_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep " gzip " | wc -l)
+        gunzip_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "gunzip " | wc -l)
+        bzip2_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "bzip2 " | wc -l)
+        bunzip2_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "bunzip2 " | wc -l)
+        zip_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep " zip " | wc -l)
+        unzip_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep " unzip " | wc -l)
+        rar_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep " rar " | wc -l)
+        unrar_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "unrar " | wc -l)
+        compression_count_non=$((tar_count_non + gzip_count_non + gunzip_count_non + bzip2_count_non + bunzip2_count_non + zip_count_non + unzip_count_non + rar_count_non + unrar_count_non))
+        
+        # Reading/writing files noninteractive
+        vim_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "vim " | wc -l)
+        nano_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "nano " | wc -l)
+        emacs_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "emacs " | wc -l)
+        more_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "more " | wc -l)
+        less_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "less " | wc -l)
+        rw_count_non=$((vim_count_non + nano_count_non + emacs_count + more_count + less_count))
+
+        # User noninteractive
+        adduser_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "adduser " | wc -l)
+        passwd_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "passwd " | wc -l)
+        deluser_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "deluser " | wc -l)
+        groupadd_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "groupadd " | wc -l)
+        groupdel_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "groupdel " | wc -l)
+        groupmod_count_non=$(cat $filename | grep " Noninteractive mode attacker command: " | grep "groupmod " | wc -l)
+        usersettings_count_non=$((adduser_count_non + passwd_count_non + deluser_count_non + groupadd_count_non + groupdel_count_non + groupmod_count_non))
+
+        # Number of banners seen (depends on poisoned commands)
+        banner_count=$((downloading_count + compression_count + rw_count + usersettings_count + downloading_count_non + compression_count_non + rw_count_non + usersettings_count_non)) 
+
+        if [ -z $LXC_stream_start_time ]
+        then
+            LXC_stream_start_time="NA"
+        fi
+
+        if [ -z $LXC_stream_end_time ]
+        then
+            LXC_stream_end_time="NA"
+        fi
+
+        if [ $LXC_stream_start_time != "NA" ]
+        then
+            banner_count=$((downloading_count + compression_count + rw_count + usersettings_count + downloading_count_non + compression_count_non + rw_count_non + usersettings_count_non + 1))
+        fi
+
+        echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $total_sudo $command_count $downloading_count $compression_count $rw_count $usersettings_count $sudo_count_non $command_count_non $downloading_count_non $compression_count_non $rw_count_non $usersettings_count_non $banner_count" >> $total_collection_filepath_2
+
+        if [ $LXC_stream_start_time != "NA" ]
+        then
+            echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $total_sudo $command_count $downloading_count $compression_count $rw_count $usersettings_count $sudo_count_non $command_count_non $downloading_count_non $compression_count_non $rw_count_non $usersettings_count_non $banner_count" >> $total_collection_attackers_filepath_2
+        fi
+    done
+
+    # Random commands that we might want to keep a hold of:
+
+    # Get time attacker connected (last one if multiple connections made)
+    # attacker_connection_time=$(cat $filename | grep "\[Debug] \[Connection] Attacker connected:" | tail -1 | cut -d " " -f 2)
+
+    # Get time attacker broke auto access
+    # attacker_enter_system=$(cat $filename | grep "\[Debug] \[LXC-Auth] Attacker authenticated and is inside container" | cut -d " " -f 2)
+
+    if [ ! -d "/Data/src" ]
     then
-        banner_count=$((downloading_count + compression_count + rw_count + usersettings_count + downloading_count_non + compression_count_non + rw_count_non + usersettings_count_non + 1))
+        mkdir -p "/Data/src"
     fi
+    # We can collect the data and zip it, then prepare the files for removal.
+    sudo sh /1G-Ray-of-Light/DataCollection/zipfiles /MITM/mitm_logs/$d /Data/src/$d #dont inclide the .zip part
 
-    if [[ -z $LXC_stream_start_time ]]
-    then
-        LXC_stream_start_time="NA"
-    fi
+    # i'll just mass the full data here, we grep all the data idc (we shouldn't need to)
 
-    if [[ -z $LXC_stream_end_time ]]
-    then
-        LXC_stream_end_time="NA"
-    fi
-
-    echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $total_sudo $command_count $downloading_count $compression_count $rw_count $usersettings_count $sudo_count_non $command_count_non $downloading_count_non $compression_count_non $rw_count_non $usersettings_count_non $banner_count" >> $total_collection_filepath
-
-    if [[ $time_in_system -ne 0 ]]
-    then
-        echo "$d $LXC_stream_start_time $LXC_stream_end_time $time_in_system $level $total_sudo $command_count $downloading_count $compression_count $rw_count $usersettings_count $sudo_count_non $command_count_non $downloading_count_non $compression_count_non $rw_count_non $usersettings_count_non $banner_count" >> $total_collection_attackers_filepath
-    fi
-done
-
-# Random commands that we might want to keep a hold of:
-
-# Get time attacker connected (last one if multiple connections made)
-# attacker_connection_time=$(cat $filename | grep "\[Debug] \[Connection] Attacker connected:" | tail -1 | cut -d " " -f 2)
-
-# Get time attacker broke auto access
-# attacker_enter_system=$(cat $filename | grep "\[Debug] \[LXC-Auth] Attacker authenticated and is inside container" | cut -d " " -f 2)
-
-if [ ! -d "/Data/src" ]
-then
-    mkdir -p "/Data/src"
-fi
-# We can collect the data and zip it, then prepare the files for removal.
-sudo sh /1G-Ray-of-Light/DataCollection/zipfiles /MITM/mitm_logs/$d /Data/src/$d #dont inclide the .zip part
-
-# i'll just mass the full data here, we grep all the data idc (we shouldn't need to)
 
 

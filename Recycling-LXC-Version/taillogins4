@@ -13,18 +13,24 @@ process_new_line() {
             sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5004 --jump DROP -m comment --comment "Drop other attackers container4"
         fi
 
-        sleep 5m
+        # While loop instead of sleep
+        while true; do
+            sleep 5
+            filepath=$(cat /CurrentRunningFiles/container4)
+            # get the end time of the file
+            most_recent_time=$(cat $filepath | tail -n 1 | tr -s " " | cut -d " " -f 2 | cut -d "." -f 1)
+            # if they are idle for more than a minute then we are recycling
 
-        sudo /1G-Ray-of-Light/Recycling-LXC-Version/container-delete container4
+            curr_time_seconds=$(date '+%s')
+            recent_time_seconds=$(date -d "$most_recent_time" +%s)
 
-        random_byte=$(od -An -N1 -i /dev/urandom)
-        random_number=$((random_byte % 4 + 1))
+            difference=$(($curr_time_seconds - $recent_time_seconds))
 
-        sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.115 5004 container4
+            if [ "$difference" -gt 20 ]; then
+                 sudo systemctl restart container4
+            fi
 
-        sleep 5
-
-        read
+        done
 
     done
 }
@@ -39,7 +45,6 @@ random_number=$((random_byte % 4 + 1))
 # Create container
 sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.115 5004 container4
 
-sleep 5
-
 # Wait for new ips to log into container
 sudo inotifywait --monitor --event modify /MITM/logs/logins/container4.log | process_new_line
+
