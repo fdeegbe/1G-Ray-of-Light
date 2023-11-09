@@ -13,7 +13,7 @@ assigned_ip=$2
 mitm_port=$3
 container_name=$4
 
-sudo lxc-copy -n template -N "$container_name"
+sudo lxc-copy -n new_template -N "$container_name"
 
 sudo lxc-start -n $container_name
 sleep 15
@@ -25,9 +25,9 @@ sudo lxc-attach -n $container_name -- sudo rm /home/filegen.py
 container_ip=$(sudo lxc-ls -f | grep "$container_name " | tr -s " " | cut -d " " -f 5)
 
 # Install openssh in the container.
-echo "Y" | sudo lxc-attach -n $container_name -- apt-get update
-sleep 9
-echo "Y" | sudo lxc-attach -n $container_name -- sudo apt install openssh-server
+# echo "Y" | sudo lxc-attach -n $container_name -- sudo apt update
+# sleep 30
+# echo "Y" | sudo lxc-attach -n $container_name -- sudo apt install openssh-server
 sleep 3
 sudo lxc-attach -n $container_name -- /bin/bash -c "echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && service ssh restart"
 sudo /1G-Ray-of-Light/Poisoning/poison_command.sh $container_name $container_variant
