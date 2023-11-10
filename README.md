@@ -1,6 +1,8 @@
 # 1G-Ray-of-Light
 
 ## Sign-In
+user: student
+pass: john
 
 The username is
 `fdeegbe`
