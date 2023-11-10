@@ -11,8 +11,8 @@ container_name=$1
 container_number=$(echo $container_name | colrm 1 9)
 
 # Stop the forever process
-forever_id=$(sudo forever list | grep "$container_name" | tr -s ' '  | cut -d " " -f 17)
-sudo forever stop $forever_id
+forever_id=$(forever list | grep "$container_name" | tr -s ' '  | cut -d " " -f 17)
+forever stop $forever_id
 
 # Might need to do this, not sure
 # forever_pid=$(sudo forever list | grep "$container_name" | cut -d " " -f 20) | sudo kill -9 $forever_pid
@@ -22,14 +22,14 @@ iptables-save | grep -v "Drop other attackers $container_name" | iptables-restor
 
 # Remove iptables rules
 pub=$(echo "128.8.238.25 128.8.238.39 128.8.238.58 128.8.238.115 128.8.238.188" | cut -d " " -f $container_number)
-ip_addr=$(sudo lxc-ls -f | grep "container$container_number" | tr -s " " | cut -d " " -f 5)
+ip_addr=$(lxc-ls -f | grep "container$container_number" | tr -s " " | cut -d " " -f 5)
 port=$((5000 + container_number))
 
 # Stop and destroy the container
-sudo lxc-stop -n "$container_name"
-sudo lxc-destroy -n "$container_name"
+lxc-stop -n "$container_name"
+lxc-destroy -n "$container_name"
 
 # Removes nat rules
-sudo iptables --table nat --delete PREROUTING --source 0.0.0.0/0 --destination $pub --jump DNAT --to-destination $ip_addr
-sudo iptables --table nat --delete POSTROUTING --source $ip_addr --destination 0.0.0.0/0 --jump SNAT --to-source $pub
-sudo iptables --table nat --delete PREROUTING --source 0.0.0.0/0 --destination $pub --protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:$port
+iptables --table nat --delete PREROUTING --source 0.0.0.0/0 --destination $pub --jump DNAT --to-destination $ip_addr
+iptables --table nat --delete POSTROUTING --source $ip_addr --destination 0.0.0.0/0 --jump SNAT --to-source $pub
+iptables --table nat --delete PREROUTING --source 0.0.0.0/0 --destination $pub --protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:$port

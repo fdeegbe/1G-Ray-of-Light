@@ -10,7 +10,7 @@ process_new_line() {
         # Need to add iptables rule
         if [ -n "$attacker_ip" ]; then
             echo $attacker_ip >> /LoginIPs
-            sudo /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5004 --jump DROP -m comment --comment "Drop other attackers container4"
+            /sbin/iptables --insert INPUT --protocol tcp ! --source $attacker_ip --dport 5004 --jump DROP -m comment --comment "Drop other attackers container4"
         fi
 
         # While loop instead of sleep
@@ -27,7 +27,7 @@ process_new_line() {
             difference=$(($curr_time_seconds - $recent_time_seconds))
 
             if [ "$difference" -gt 20 ]; then
-                 sudo systemctl restart container4
+                systemctl restart container4
             fi
 
         done
@@ -36,15 +36,14 @@ process_new_line() {
 }
 
 # Delete to make sure container is gone in case the process/service stopped mid recycle last time
-sudo /1G-Ray-of-Light/Recycling-LXC-Version/container-delete container4
+/1G-Ray-of-Light/Recycling-LXC-Version/container-delete container4
 
 # Get random number
 random_byte=$(od -An -N1 -i /dev/urandom)
 random_number=$((random_byte % 4 + 1))
 
 # Create container
-sudo /1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.115 5004 container4
+/1G-Ray-of-Light/Recycling-LXC-Version/recycle-create $random_number 128.8.238.115 5004 container4
 
 # Wait for new ips to log into container
-sudo inotifywait --monitor --event modify /MITM/logs/logins/container4.log | process_new_line
-
+inotifywait --monitor --event modify /MITM/logs/logins/container4.log | process_new_line
