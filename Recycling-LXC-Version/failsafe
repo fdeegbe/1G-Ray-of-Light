@@ -8,11 +8,11 @@ curr_time_seconds=$(date '+%s')
 recent_time_seconds=$(date -d "$most_recent_time" +%s)
 difference=$(($curr_time_seconds - $recent_time_seconds))
 
-if [ "$difference" -gt 1800 ]; then
+if [ "$difference" -gt 600 ]; then
     wall "failsafe activated for container1 time: $difference"
     echo "$filepath" >> /Data/failed
     sudo systemctl restart container1
-
+    mv "$filepath" /Data/Failed
 fi
 
 
@@ -28,6 +28,7 @@ if [ "$difference" -gt 1800 ]; then
     wall "failsafe activated for container2 time: $difference"
     echo "$filepath" >> /Data/failed
     sudo systemctl restart container2
+    mv "$filepath" /Data/Failed
 fi
 
 
@@ -43,6 +44,7 @@ if [ "$difference" -gt 1800 ]; then
     wall "failsafe activated for container3 time: $difference"
     echo "$filepath" >> /Data/failed     
     sudo systemctl restart container3
+    mv "$filepath" /Data/Failed
 fi
 
 
@@ -58,7 +60,7 @@ if [ "$difference" -gt 1800 ]; then
     wall "failsafe activated for container4 time: $difference"
     echo "$filepath" >> /Data/failed
     sudo systemctl restart container4
-
+    mv "$filepath" /Data/Failed
 fi
 
 
@@ -74,4 +76,5 @@ if [ "$difference" -gt 1800 ]; then
     wall "failsafe activated for container5 time: $difference"
     echo "$filepath" >> /Data/failed
     sudo systemctl restart container5
+    mv "$filepath" /Data/Failed
 fi

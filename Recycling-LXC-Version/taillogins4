@@ -26,7 +26,7 @@ process_new_line() {
 
             difference=$(($curr_time_seconds - $recent_time_seconds))
 
-            if [ "$difference" -gt 20 ]; then
+            if [ "$difference" -gt 30 ]; then
                  sudo systemctl restart container4
             fi
 
