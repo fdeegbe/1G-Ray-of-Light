@@ -63,7 +63,7 @@ sudo mkdir /MITM/mitm_logs
 sudo mkdir /MITM/mitm_logs/$d
 
 # Start the MITM server and make associated log file with time and name in the date directory.
-sudo forever -l /MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log start /MITM/mitm.js -n $container_name -i $container_ip -p $mitm_port --auto-access --auto-access-fixed 1 --debug --ssh-server-banner-file /Variance/ssh_message$contai 
+sudo forever -l /MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log start /MITM/mitm.js -n $container_name -i $container_ip -p $mitm_port --auto-access --auto-access-fixed 1 --debug --ssh-server-banner-file /1G-Ray-of-Light/Variance/ssh_message$container_variant.txt
 
 # Echo name of file to proper montoring location
 sudo echo "/MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log" | sudo tee /CurrentRunningFiles/$container_name
