@@ -15,6 +15,7 @@ if [ "$difference" -gt 600 ]; then
     mv "$filepath" /Data/Failed
 fi
 
+sleep 15
 
 # Container 2
 filepath=$(cat /CurrentRunningFiles/container2)
@@ -31,6 +32,7 @@ if [ "$difference" -gt 600 ]; then
     mv "$filepath" /Data/Failed
 fi
 
+sleep 15
 
 # Container 3
 filepath=$(cat /CurrentRunningFiles/container3)
@@ -47,6 +49,7 @@ if [ "$difference" -gt 600 ]; then
     mv "$filepath" /Data/Failed
 fi
 
+sleep 15
 
 # Container 4
 filepath=$(cat /CurrentRunningFiles/container4)
@@ -63,6 +66,7 @@ if [ "$difference" -gt 600 ]; then
     mv "$filepath" /Data/Failed
 fi
 
+sleep 15
 
 # Container 5
 filepath=$(cat /CurrentRunningFiles/container5)
