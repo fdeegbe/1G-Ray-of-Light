@@ -18,6 +18,11 @@ github_pat_11AU7BHII0wxOAuJgAFgk8_4GJIuJfpNYpGnuXyXHob75dMgAvgNYC04yZvCOE9yCt2VZ
 
 `128.8.238.115 5004 container4`
 
+`128.8.238.188 5005 container5`
+
+## Monitoring the Containers
+`sudo systemctl status container2 `
+`sudo systemctl restart container2 `
 ## Bash-Demos
 ### Contains the demos for our creation and destruction scripts
 
