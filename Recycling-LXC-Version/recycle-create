@@ -13,12 +13,12 @@ assigned_ip=$2
 mitm_port=$3
 container_name=$4
 
-lxc-copy -n new_template -N "$container_name"
+sudo lxc-copy -n new_template -N "$container_name"
 
-lxc-start -n $container_name
+sudo lxc-start -n $container_name
 sleep 15
 # TODO: finish this
-cp /1G-Ray-of-Light/HoneyCreation/filegen.py /var/lib/lxc/$container_name/rootfs/home
+sudo cp /1G-Ray-of-Light/HoneyCreation/filegen.py /var/lib/lxc/$container_name/rootfs/home
 sudo lxc-attach -n $container_name -- sudo python3 /home/filegen.py
 sudo lxc-attach -n $container_name -- sudo rm /home/filegen.py
 # pull ip address of container
@@ -39,15 +39,15 @@ then
 elif [ $container_variant == 2 ]
 then
     # level 2
-    cp /1G-Ray-of-Light/Poisoning/level2/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
+    sudo cp /1G-Ray-of-Light/Poisoning/level2/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
 elif [ $container_variant == 3 ]
 then
     # level 3
-    cp /1G-Ray-of-Light/Poisoning/level3/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
+    sudo cp /1G-Ray-of-Light/Poisoning/level3/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
 elif [ $container_variant == 4 ]
 then
     # level 4
-    cp /1G-Ray-of-Light/Poisoning/level4/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
+    sudo cp /1G-Ray-of-Light/Poisoning/level4/motd.txt /var/lib/lxc/$container_name/rootfs/etc/motd
 fi
 
 # Command needed for MITM server routing.
@@ -58,15 +58,15 @@ d=$(date +%Y-%m-%d)
 t=$(date +%T)
 
 # Make the directories for the MITM file system.
-mkdir /MITM
-mkdir /MITM/mitm_logs
-mkdir /MITM/mitm_logs/$d
+sudo mkdir /MITM
+sudo mkdir /MITM/mitm_logs
+sudo mkdir /MITM/mitm_logs/$d
 
 # Start the MITM server and make associated log file with time and name in the date directory.
 sudo forever -l /MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log start /MITM/mitm.js -n $container_name -i $container_ip -p $mitm_port --auto-access --auto-access-fixed 1 --debug
 
 # Echo name of file to proper montoring location
-echo "/MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log" | sudo tee /CurrentRunningFiles/$container_name
+sudo echo "/MITM/mitm_logs/$d/$t-$container_name-level:$container_variant.log" | sudo tee /CurrentRunningFiles/$container_name
 
 # Insert necessary nat rules.
 sudo ip addr add $assigned_ip/16 brd + dev eth1
