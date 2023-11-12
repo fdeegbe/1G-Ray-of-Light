@@ -59,14 +59,14 @@
 
 
 
-        interactive_command_count2=$(cat $filename | grep "line from reader: " | cut -d " " -f 9-)
-        non_interactive_command_count2=$(cat $filename | grep "Noninteractive mode attacker command: " | cut -d " " -f 10-)
+        # interactive_command_count2=$(cat $filename | grep "line from reader: " | cut -d " " -f 9-)
+        # non_interactive_command_count2=$(cat $filename | grep "Noninteractive mode attacker command: " | cut -d " " -f 10-)
 
-        interactive_command_count2=$(echo $interactive_command_count2 | tr ';' '\n' | tr '||' '\n' | tr '&&' '\n' | wc -l)
-        non_interactive_command_count2=$(echo $non_interactive_command_count2 | tr ';' '\n' | tr '||' '\n' | tr '&&' '\n' | wc -l)
+        # interactive_command_count2=$(echo $interactive_command_count2 | tr ';' '\n' | tr '||' '\n' | tr '&&' '\n' | wc -l)
+        # non_interactive_command_count2=$(echo $non_interactive_command_count2 | tr ';' '\n' | tr '||' '\n' | tr '&&' '\n' | wc -l)
 
 
-        total_command_count=$(( interactive_command_count2 + non_interactive_command_count2 ))
+        # total_command_count=$(( interactive_command_count2 + non_interactive_command_count2 ))
 
 
 
@@ -77,9 +77,6 @@
         # Count number of su
         su_count=$(cat $filename | grep "line from reader: " | grep "su " | wc -l)
 
-
-        # Count number of commands (ignoring empty lines)
-        command_count=$(cat $filename | grep "line from reader: " | cut -d " " -f 9 | grep "\S" | wc -l)
 
 
         # Here do we want to do # of wget and curl stuff to see how much malware commands
@@ -194,12 +191,12 @@
     done
 
 
-    # if [ ! -d "/Data/src" ]
-    # then
-    #     mkdir -p "/Data/src"
-    # fi
-    # # We can collect the data and zip it, then prepare the files for removal.
-    # sudo sh /1G-Ray-of-Light/DataCollection/zipfiles /MITM/mitm_logs/$d /Data/src/$d #dont inclide the .zip part
+    if [ ! -d "/Data/src" ]
+    then
+        mkdir -p "/Data/src"
+    fi
+    # We can collect the data and zip it, then prepare the files for removal.
+    sudo sh /1G-Ray-of-Light/DataCollection/zipfiles /MITM/mitm_logs/$d /Data/src/$d #dont inclide the .zip part
 
 
 
