@@ -1,0 +1,14 @@
+#!/bin/bash
+
+d=$1
+
+for filename in /MITM/mitm_logs/$d/*.log; do
+
+    hasopenssh=$(cat $filename | grep "Container's OpenSSH server ended connection")
+
+    if [ -z "$hasopenssh" ]
+    then
+        echo $filename
+    fi
+
+done
