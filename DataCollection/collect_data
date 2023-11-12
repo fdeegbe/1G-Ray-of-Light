@@ -1,10 +1,10 @@
     #!/bin/bash
 
     # Data collection
-      d=$1
+    # d=$1
     # d=$(date +%Y-%m-%d)
     # This will go through yesterday's files
-    # d=$(date -d "1 day ago" +%Y-%m-%d)
+    d=$(date -d "1 day ago" +%Y-%m-%d)
 
     total_collection_filepath=$(echo "/Data/cumulative")
 
