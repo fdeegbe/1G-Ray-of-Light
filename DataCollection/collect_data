@@ -32,7 +32,7 @@
 
 
         # Is this variable good?
-        if [ -z $is_interactive ]
+        if [ -z "$is_interactive" ]
         then
             is_interactive=false
         else
@@ -51,7 +51,7 @@
         # Count number of commands (ignoring empty lines)
         non_interactive_command_count=$(cat $filename | grep "Noninteractive mode attacker command: " | cut -d " " -f 9 | grep "\S" | wc -l)
 
-        total_command_count=$(( interactive_command + non_interactive_command_count ))
+        total_command_count=$(( interactive_command_count + non_interactive_command_count ))
 
 
         # Count number of sudos
