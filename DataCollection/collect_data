@@ -45,13 +45,30 @@
         # Get attacker IP
         attacker_ip=$(cat $filename | grep  "Threshold: 1, Attempts: 1" | cut -d' ' -f8 | cut -d',' -f1)
 
+
+
+
         # Count number of commands (ignoring empty lines)
         interactive_command_count=$(cat $filename | grep "line from reader: " | cut -d " " -f 9 | grep "\S" | wc -l)
 
         # Count number of commands (ignoring empty lines)
         non_interactive_command_count=$(cat $filename | grep "Noninteractive mode attacker command: " | cut -d " " -f 9 | grep "\S" | wc -l)
 
+
         total_command_count=$(( interactive_command_count + non_interactive_command_count ))
+
+
+
+        interactive_command_count2=$(cat $filename | grep "line from reader: " | cut -d " " -f 9-)
+        non_interactive_command_count2=$(cat $filename | grep "Noninteractive mode attacker command: " | cut -d " " -f 10-)
+
+        interactive_command_count2=$(echo $interactive_command_count2 | tr ';' '\n' | tr '||' '\n' | tr '&&' '\n' | wc -l)
+        non_interactive_command_count2=$(echo $non_interactive_command_count2 | tr ';' '\n' | tr '||' '\n' | tr '&&' '\n' | wc -l)
+
+
+        total_command_count=$(( interactive_command_count2 + non_interactive_command_count2 ))
+
+
 
 
         # Count number of sudos
