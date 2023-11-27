@@ -5,7 +5,7 @@
     total_collection_filepath=$(echo "/Data/cumulative_with_args")
 
 
-    for filename in $1; do
+    for filename in $1/*; do
         echo $filename
 
         hasopenssh=$(cat $filename | grep "Container's OpenSSH server ended connection")
