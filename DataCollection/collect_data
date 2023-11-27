@@ -36,16 +36,13 @@
 
 
         time_attacker_authenticated=$(cat $filename | grep "Attacker authenticated and is inside container" | cut -d "-" -f 1-3 | head -n 1)        
-        milliseconds1=$(date --date "$time_attacker_authenticated" +%N)
-        seconds1=$(date --date "$time_attacker_authenticated" +%s)
-        timestamp_in_milliseconds1=$((seconds1 * 1000 + milliseconds1 / 1000000))
+        ms1=$(date -d $time_attacker_authenticated +%s.%N)
 
         time_attacker_leaves=$(cat $filename | grep "Container's OpenSSH server ended connection" | cut -d "-" -f 1-3 | head -n 1)
-        milliseconds1=$(date --date "$time_attacker_leaves" +%N)
-        seconds2=$(date --date "$time_attacker_leaves" +%s)
-        timestamp_in_milliseconds2=$((seconds1 * 1000 + milliseconds1 / 1000000))
+        ms2=$(date -d $time_attacker_leaves +%s.%N)
+        
+        time_in_system=$(awk "BEGIN{print $ms2 - $ms1}")
 
-        time_in_system=$((timestamp_in_milliseconds2 - timestamp_in_milliseconds1))
 
 
         is_interactive=$(cat $filename | grep "\[LXC Streams] New Stream" | cut -d "." -f 1 | head -n 1)
