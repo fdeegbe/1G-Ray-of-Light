@@ -58,7 +58,8 @@
         fi
 
         # Get level of system
-        level=$(echo $filename | cut -d "-" -f 5 | cut -d ":" -f 2 | cut -d "." -f 1)
+        # level=$(echo $filename | cut -d "-" -f 5 | cut -d ":" -f 2 | cut -d "." -f 1)
+        level=$(echo $filename | cut -d ":" -f 4 | cut -d "." -f 1)
 
         # Get attacker IP
         attacker_ip=$(cat $filename | grep  "Threshold: 1, Attempts: 1" | cut -d' ' -f8 | cut -d',' -f1)
