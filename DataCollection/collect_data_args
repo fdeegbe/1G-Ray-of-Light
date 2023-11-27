@@ -19,7 +19,7 @@
         # Multiple Connection Check: If there are multiple connections do not parse the file
         num_uniq_connections=$(cat $filename | grep  "Attacker connected:" | cut -d " " -f 8 | sort | uniq | wc -l)
 
-        if (( num_uniq_connections==1 ))
+        if (( num_uniq_connections > 1 ))
         then 
             echo "$filename - has been skipped - multiple attacker connections"
             continue
