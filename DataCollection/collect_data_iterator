@@ -5,4 +5,5 @@ directory_names=( "2023-11-10" "2023-11-11" "2023-11-12" "2023-11-13" "2023-11-1
 for i in "${directory_names[@]}"
 do
     echo "/MITM/mitm_logs/$i"
+    # /1G-Ray-of-Light/DataCollection/collect_data "/MITM/mitm_logs/$i"
 done
