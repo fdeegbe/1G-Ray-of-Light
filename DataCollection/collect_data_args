@@ -38,10 +38,10 @@
 
 
         time_attacker_authenticated=$(cat $filename | grep "Attacker authenticated and is inside container" | cut -d "-" -f 1-3 | head -n 1)        
-        ms1=$(date -d $time_attacker_authenticated +%s.%N)
+        ms1=$( date -d "$time_attacker_authenticated" '+%s.%N' )
 
         time_attacker_leaves=$(cat $filename | grep "Container's OpenSSH server ended connection" | cut -d "-" -f 1-3 | head -n 1)
-        ms2=$(date -d $time_attacker_leaves +%s.%N)
+        ms2=$( date --date "$time_attacker_leaves" '+%s.%N' )
         
         time_in_system=$(awk "BEGIN{print $ms2 - $ms1}")
 
