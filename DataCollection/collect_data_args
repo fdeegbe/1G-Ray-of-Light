@@ -31,9 +31,9 @@
 
         # Date Check
         date1=`date +%s --date="$d"`
-        date2=`date +%s --date="2023-11-25"`
+        date2=`date +%s --date="2023-11-26"`
         if [[ "$date1" -lt "$date2" ]]; then
-            echo "$d earlier than 2023-11-25"
+            echo "$d earlier than 2023-11-26"
             continue
         fi
 
