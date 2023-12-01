@@ -2,7 +2,8 @@
 
     # Data collection
 
-    total_collection_filepath=$(echo "/Data/cumulative_with_args")
+    # total_collection_filepath=$(echo "/Data/cumulative_with_args")
+    total_collection_filepath=$(echo "/Data/cumulative_testing")
 
 
     for filename in $1/*; do
@@ -30,9 +31,9 @@
 
         # Date Check
         date1=`date +%s --date="$d"`
-        date2=`date +%s --date="2023-11-10"`
+        date2=`date +%s --date="2023-11-25"`
         if [[ "$date1" -lt "$date2" ]]; then
-            echo "$d earlier than 2023-11-10"
+            echo "$d earlier than 2023-11-25"
             continue
         fi
 
