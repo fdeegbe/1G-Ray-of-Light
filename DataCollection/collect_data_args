@@ -2,8 +2,8 @@
 
     # Data collection
 
-    # total_collection_filepath=$(echo "/Data/cumulative_with_args")
-    total_collection_filepath=$(echo "/Data/cumulative_testing")
+    total_collection_filepath=$(echo "/Data/cumulative_with_args")
+    # total_collection_filepath=$(echo "/Data/cumulative_testing")
 
 
     for filename in $1/*; do
