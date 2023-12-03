@@ -59,5 +59,4 @@ touch /Data/cumulative_with_attackers
 
 echo "Date Level Attacker_IP IsInteractive Command_Count Time_In_System Start_Time End_Time Banner_Count Sudo_Count Downloading_Count Compression_Count RW_Count Usersettings_Count Filename" | sudo tee /Data/cumulative_with_args
 
-
-echo -e "0 1 * * * /1G-Ray-of-Light/DataCollection/collect_data\n@reboot sh /1G-Ray-of-Light/Setup/firewall_rules.sh\n\n" | sudo crontab -
+echo -e "0 1 * * * /1G-Ray-of-Light/DataCollection/collect_data\n@reboot sh /1G-Ray-of-Light/Setup/firewall_rules.sh\n*/5 * * * * /1G-Ray-of-Light/Recycling-LXC-Version/failsafe\n\n" | sudo crontab -
