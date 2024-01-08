@@ -1,34 +1,5 @@
 # 1G-Ray-of-Light
 
-## Sign-In
-user: student
-pass: john
-
-The username is
-`fdeegbe`
-the password is
-```bash
-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
-```
-
-## Container-info
-`128.8.238.25 5001 container1`
-
-`128.8.238.39 5002 container2`
-
-`128.8.238.58 5003 container3`
-
-`128.8.238.115 5004 container4`
-
-`128.8.238.188 5005 container5`
-
-## Monitoring the Containers
-`sudo systemctl status container2 `
-`sudo systemctl restart container2 `
-## Bash-Demos
-### Contains the demos for our creation and destruction scripts
-
-
 ## Usage
 
 Simply `git clone [link]` this repository into the VM where the containers will be spawned from. Then move the repository to the root (/) directory (the cron calls will use full paths so this is important). You should see updating log files in the /MITM/mitm_logs file.
@@ -45,23 +16,9 @@ This script will create and start a container, install openssh on the container,
 ### Recycling-LXC-Version/recycle-delete
 This script will stop all forever (MITM) processes, stop and destroy the containers, and delete the nat rules.
 
-
-
-
-## Testing
-When pushing/pulling on the development server, git will ask you for a password. You can use this fine-grained access token
-
-ignore this
-```bash
-git config --global credential.https://github.com.username your-username
-git config --global credential.https://github.com.token your-access-token
-git config --global --unset credential.helper
-```
-
-
- ## Version
+ ## Release Version
  ```
- NAME="Ubuntu"
+NAME="Ubuntu"
 VERSION="20.04.6 LTS (Focal Fossa)"
 ID=ubuntu
 ID_LIKE=debian
