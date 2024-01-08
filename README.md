@@ -1,5 +1,7 @@
 # 1G-Ray-of-Light
 
+NOTE: This repository has been archived 1/8/2024, as it is no longer being updated.
+
 ## Usage
 
 Simply `git clone [link]` this repository into the VM where the containers will be spawned from. Then move the repository to the root (/) directory (the cron calls will use full paths so this is important). You should see updating log files in the /MITM/mitm_logs file.
